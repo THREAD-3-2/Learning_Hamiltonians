@@ -36,8 +36,6 @@
             
   <section id="learning-procedure">
 <span id="learn"></span><h1>Learning procedure<a class="headerlink" href="#learning-procedure" title="Permalink to this heading">¶</a></h1>
-<section id="problem-description">
-<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this heading">¶</a></h2>
 <p>We work with numerically generated training trajectories that we denote by</p>
 <div class="math notranslate nohighlight">
 \[\begin{align}
@@ -70,7 +68,49 @@ as shown for the forward pass of a single training trajectory in the following f
 </figure>
 <p>Indeed, the weight sharing principle of RNNs is reproduced by the time steps in the numerical integrator which are all
 based on the same approximation of the Hamiltonian, and hence on the same weights <span class="math notranslate nohighlight">\(\Theta\)</span>. In Algorithm WRITE ALGORITHM
-we report one training epoch for a batch of data points…</p>
+we report one training epoch for a batch of data points.</p>
+<section id="architecture-of-the-network">
+<h2>Architecture of the network<a class="headerlink" href="#architecture-of-the-network" title="Permalink to this heading">¶</a></h2>
+<p>In this example, the role of the neural network is to model the Hamiltonian, i.e. a scalar function defined on the phase
+space <span class="math notranslate nohighlight">\(\mathbb{R}^{2n}\)</span>. Thus, the starting and arrival spaces are fixed.</p>
+<p>We leverage the form of the kinetic energy, where <span class="math notranslate nohighlight">\(M(q)\)</span> is modelled through a constant symmetric and positive
+definite matrix with entries <span class="math notranslate nohighlight">\(m_{ij}\)</span>. Therefore, we aim at learning a constant matrix
+<span class="math notranslate nohighlight">\(A\in\mathbb{R}^{k\times k}\)</span> and a vector <span class="math notranslate nohighlight">\(b\in\mathbb{R}^k\)</span> so that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \begin{bmatrix}
+    m_{11} &amp; ... &amp; m_{1k}\\
+    m_{21} &amp; ... &amp; m_{2k}\\
+    \vdots &amp; \vdots &amp; \vdots \\
+    m_{k1} &amp; ... &amp; m_{kk}
+    \end{bmatrix} \approx A^TA +
+    \begin{bmatrix}
+    \tilde{b}_{1} &amp; 0 &amp; ... &amp; 0 \\
+    0 &amp; \tilde{b}_2 &amp; \ddots &amp; \vdots \\
+    \vdots &amp; \ddots &amp; \ddots &amp; 0 \\
+    0 &amp; ... &amp; 0 &amp; \tilde{b}_k
+    \end{bmatrix}
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{b}_i := \max{(0,b_i)}\)</span> are terms added to promote the positive definiteness of the right-hand side.
+Notice that, in principle, the imposition of the positive (semi)definiteness of the matrix defining the kinetic energy
+is not necessary, but it allows to get more interpretable results. Indeed, it is known that the kinetic energy should
+define a metric on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the assumption we are making guarantees such a property.  For the
+potential energy, a possible modelling strategy is to work with standard feedforward neural networks, and hence to define</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}   \begin{align}
+       V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
+   \end{align\\.. math::\\   \begin{align}
+       \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
+   \end{align}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    f_{\theta_i}(u) := \Sigma(W_iu + b_i),\;\mathbb{R}^n\ni z\mapsto \Sigma(z) = [\sigma(z_1),...,\sigma(z_n)]\in\mathbb{R}^n,
+\end{align}\]</div>
+<p>for example with <span class="math notranslate nohighlight">\(\sigma(x) = \tanh(x)\)</span>. Therefore, we have that</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
+\end{align}\]</div>
 </section>
 </section>
 
@@ -94,7 +134,7 @@ we report one training epoch for a batch of data points…</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Example</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Learning procedure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#problem-description">Problem description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-of-the-network">Architecture of the network</a></li>
 </ul>
 </li>
 </ul>

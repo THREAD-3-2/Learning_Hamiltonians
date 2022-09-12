@@ -4,10 +4,6 @@
 Learning procedure
 ==================
 
-
-Problem description
-===================
-
 We work with numerically generated training trajectories that we denote by 
 
 .. math::
@@ -49,4 +45,65 @@ as shown for the forward pass of a single training trajectory in the following f
 
 Indeed, the weight sharing principle of RNNs is reproduced by the time steps in the numerical integrator which are all 
 based on the same approximation of the Hamiltonian, and hence on the same weights :math:`\Theta`. In Algorithm WRITE ALGORITHM 
-we report one training epoch for a batch of data points...
+we report one training epoch for a batch of data points.
+
+
+Architecture of the network
+===========================
+
+In this example, the role of the neural network is to model the Hamiltonian, i.e. a scalar function defined on the phase 
+space :math:`\mathbb{R}^{2n}`. Thus, the starting and arrival spaces are fixed.
+
+We leverage the form of the kinetic energy, where :math:`M(q)` is modelled through a constant symmetric and positive 
+definite matrix with entries :math:`m_{ij}`. Therefore, we aim at learning a constant matrix 
+:math:`A\in\mathbb{R}^{k\times k}` and a vector :math:`b\in\mathbb{R}^k` so that
+
+
+.. math::
+
+    \begin{align}
+        \begin{bmatrix}
+        m_{11} & ... & m_{1k}\\
+        m_{21} & ... & m_{2k}\\
+        \vdots & \vdots & \vdots \\
+        m_{k1} & ... & m_{kk}
+        \end{bmatrix} \approx A^TA + 
+        \begin{bmatrix}
+        \tilde{b}_{1} & 0 & ... & 0 \\
+        0 & \tilde{b}_2 & \ddots & \vdots \\
+        \vdots & \ddots & \ddots & 0 \\
+        0 & ... & 0 & \tilde{b}_k
+        \end{bmatrix}
+    \end{align}
+
+where :math:`\tilde{b}_i := \max{(0,b_i)}` are terms added to promote the positive definiteness of the right-hand side. 
+Notice that, in principle, the imposition of the positive (semi)definiteness of the matrix defining the kinetic energy 
+is not necessary, but it allows to get more interpretable results. Indeed, it is known that the kinetic energy should 
+define a metric on :math:`\mathbb{R}^n` and the assumption we are making guarantees such a property.  For the 
+potential energy, a possible modelling strategy is to work with standard feedforward neural networks, and hence to define
+
+.. math::
+
+    \begin{align}
+        V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
+    \end{align
+
+ .. math::
+
+    \begin{align}       
+        \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
+    \end{align}
+
+.. math::
+
+    \begin{align}
+        f_{\theta_i}(u) := \Sigma(W_iu + b_i),\;\mathbb{R}^n\ni z\mapsto \Sigma(z) = [\sigma(z_1),...,\sigma(z_n)]\in\mathbb{R}^n,
+    \end{align}
+        
+for example with :math:`\sigma(x) = \tanh(x)`. Therefore, we have that
+
+.. math::
+
+    \begin{align}
+        \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
+    \end{align}
