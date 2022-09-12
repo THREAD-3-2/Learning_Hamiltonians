@@ -5,7 +5,7 @@
 ============
 
 
-Learing procedure
+Learning procedure
 =================
 
 We work with numerically generated training trajectories that we denote by
