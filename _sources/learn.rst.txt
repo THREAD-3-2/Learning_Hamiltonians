@@ -1,12 +1,9 @@
 .. _learn:
 
-============
- Algorithms
-============
+===================
+ Learning procedure
+===================
 
-
-Learning procedure
-=================
 
 We work with numerically generated training trajectories that we denote by
 
@@ -117,6 +114,4 @@ for example with :math:`\sigma(x) = \tanh(x)`. Therefore, we have that
     \begin{align}
         \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
     \end{align}
-
-.. autofunction:: code.learn_hamiltonian.forward
 
