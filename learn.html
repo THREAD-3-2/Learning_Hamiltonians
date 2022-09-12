@@ -39,8 +39,8 @@
 <section id="learing-procedure">
 <h2>Learing procedure<a class="headerlink" href="#learing-procedure" title="Permalink to this heading">¶</a></h2>
 <p>We work with numerically generated training trajectories that we denote by</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-ttraj">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ttraj" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \{(x_i,y_i^2,...,y_i^M)\}_{i=1,...,N}.
 \end{align}\]</div>
 <p>To obtain an approximation of the Hamiltonian <span class="math notranslate nohighlight">\(H\)</span>, we define a parametric model <span class="math notranslate nohighlight">\(H_{\Theta}\)</span> and
@@ -49,14 +49,14 @@ look for a <span class="math notranslate nohighlight">\(\Theta\)</span> so that 
 In  our approach, <span class="math notranslate nohighlight">\(\Theta\)</span> will collect a factor of the mass matrix and the weights of a neural network,
 as described below. We use some numerical one-step method <span class="math notranslate nohighlight">\(\Psi_{X_{H_{\Theta}}}^{\Delta t}\)</span> to generate
 the trajectories</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-ltraj">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ltraj" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \hat{y}_i^j(\Theta) :=\Psi_{X_{H_{\Theta}}}^{\Delta t}(\hat{y}_i^{j-1}(\Theta)),\quad \hat{y}_i^1(\Theta) := x_i, \quad j=2,\dots,M, \; i=1,\dots,N.
 \end{align}\]</div>
 <p>We then optimize a loss function measuring the distance between the given trajectories <span class="math notranslate nohighlight">\(y^j_i\)</span> and the generated
 ones <span class="math notranslate nohighlight">\(\hat{y}_i^j\)</span>, defined as</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-loss">
+<span class="eqno">(3)<a class="headerlink" href="#equation-loss" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \mathcal{L}(\Theta):=\frac{1}{2n}\frac{1}{NM}\sum_{i=1}^N\mathcal{L}_i(\Theta) = \frac{1}{2n}\frac{1}{NM}\sum_{i=1}^N\sum_{j=1}^M \|\hat{y}_i^j(\Theta)- y_i^j\|^2,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\|\cdot\|\)</span> is the Euclidean metric of <span class="math notranslate nohighlight">\(\mathbb{R}^{2n}\)</span>. This is implemented with the PyTorch
@@ -69,8 +69,7 @@ as shown for the forward pass of a single training trajectory in the following f
 </figcaption>
 </figure>
 <p>Indeed, the weight sharing principle of RNNs is reproduced by the time steps in the numerical integrator which are all
-based on the same approximation of the Hamiltonian, and hence on the same weights <span class="math notranslate nohighlight">\(\Theta\)</span>. In Algorithm WRITE ALGORITHM
-we report one training epoch for a batch of data points.</p>
+based on the same approximation of the Hamiltonian, and hence on the same weights <span class="math notranslate nohighlight">\(\Theta\)</span>.</p>
 </section>
 <section id="architecture-of-the-network">
 <h2>Architecture of the network<a class="headerlink" href="#architecture-of-the-network" title="Permalink to this heading">¶</a></h2>
@@ -79,8 +78,8 @@ space <span class="math notranslate nohighlight">\(\mathbb{R}^{2n}\)</span>. Thu
 <p>We leverage the form of the kinetic energy, where <span class="math notranslate nohighlight">\(M(q)\)</span> is modelled through a constant symmetric and positive
 definite matrix with entries <span class="math notranslate nohighlight">\(m_{ij}\)</span>. Therefore, we aim at learning a constant matrix
 <span class="math notranslate nohighlight">\(A\in\mathbb{R}^{k\times k}\)</span> and a vector <span class="math notranslate nohighlight">\(b\in\mathbb{R}^k\)</span> so that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+<div class="math notranslate nohighlight" id="equation-mmatr">
+<span class="eqno">(4)<a class="headerlink" href="#equation-mmatr" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
     \begin{bmatrix}
     m_{11} &amp; ... &amp; m_{1k}\\
     m_{21} &amp; ... &amp; m_{2k}\\
@@ -99,19 +98,21 @@ Notice that, in principle, the imposition of the positive (semi)definiteness of 
 is not necessary, but it allows to get more interpretable results. Indeed, it is known that the kinetic energy should
 define a metric on <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the assumption we are making guarantees such a property.  For the
 potential energy, a possible modelling strategy is to work with standard feedforward neural networks, and hence to define</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}   \begin{align}
-       V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
-   \end{align}\\.. math::\\   \begin{align}
-       \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
-   \end{align}\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-pot">
+<span class="eqno">(5)<a class="headerlink" href="#equation-pot" title="Permalink to this equation">¶</a></span>\[\begin{align}
+    V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
+\end{align}\]</div>
+<div class="math notranslate nohighlight" id="equation-pnn">
+<span class="eqno">(6)<a class="headerlink" href="#equation-pnn" title="Permalink to this equation">¶</a></span>\[\begin{align}
+    \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
+\end{align}\]</div>
+<div class="math notranslate nohighlight" id="equation-fnn">
+<span class="eqno">(7)<a class="headerlink" href="#equation-fnn" title="Permalink to this equation">¶</a></span>\[\begin{align}
     f_{\theta_i}(u) := \Sigma(W_iu + b_i),\;\mathbb{R}^n\ni z\mapsto \Sigma(z) = [\sigma(z_1),...,\sigma(z_n)]\in\mathbb{R}^n,
 \end{align}\]</div>
 <p>for example with <span class="math notranslate nohighlight">\(\sigma(x) = \tanh(x)\)</span>. Therefore, we have that</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-tpar">
+<span class="eqno">(8)<a class="headerlink" href="#equation-tpar" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
 \end{align}\]</div>
 </section>

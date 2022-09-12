@@ -8,9 +8,10 @@
 Learing procedure
 =================
 
-We work with numerically generated training trajectories that we denote by 
+We work with numerically generated training trajectories that we denote by
 
 .. math::
+    :label: ttraj
 
     \begin{align}
         \{(x_i,y_i^2,...,y_i^M)\}_{i=1,...,N}.
@@ -24,6 +25,7 @@ as described below. We use some numerical one-step method :math:`\Psi_{X_{H_{\Th
 the trajectories
 
 .. math::
+    :label: ltraj
 
     \begin{align}
         \hat{y}_i^j(\Theta) :=\Psi_{X_{H_{\Theta}}}^{\Delta t}(\hat{y}_i^{j-1}(\Theta)),\quad \hat{y}_i^1(\Theta) := x_i, \quad j=2,\dots,M, \; i=1,\dots,N.
@@ -33,6 +35,7 @@ We then optimize a loss function measuring the distance between the given trajec
 ones :math:`\hat{y}_i^j`, defined as
 
 .. math::
+    :label: loss
 
     \begin{align}
         \mathcal{L}(\Theta):=\frac{1}{2n}\frac{1}{NM}\sum_{i=1}^N\mathcal{L}_i(\Theta) = \frac{1}{2n}\frac{1}{NM}\sum_{i=1}^N\sum_{j=1}^M \|\hat{y}_i^j(\Theta)- y_i^j\|^2,
@@ -48,40 +51,7 @@ as shown for the forward pass of a single training trajectory in the following f
    Figure 1. Forward pass of an input training trajectory :math:`(x_i,y_i^2,...,y_i^M)`. The picture highlights the resemblance to an unrolled version of a Recurrent Neural Network. The network outputs :math:`(\hat{y}_i^2,…,\hat{y}_i^M)`.
 
 Indeed, the weight sharing principle of RNNs is reproduced by the time steps in the numerical integrator which are all 
-based on the same approximation of the Hamiltonian, and hence on the same weights :math:`\Theta`. In Algorithm WRITE ALGORITHM 
-we report one training epoch for a batch of data points.
-
-.. pcode::
-   :linenos:
-
-        \begin{algorithm}[h!]
-            \begin{algorithmic}
-                \caption{One epoch of the recurrent approximation of the Hamiltonian.}
-                \label{alg:one}
-                        \State {Choose a numerical integrator ($s$ stages)}
-                        \State {$\hat{N}\gets \texttt{batch size}$,\qquad $\text{Loss} \gets 0$}
-                        \For {$i=1,\dots,\hat{N}$}
-                        \State {$\hat{y}_i^1 \gets x_i$}
-                            \For {$j = 1,\dots,M$}
-                                \State {$\hat{y}_i^{j,[1]} \gets \hat{y}_i^j$}
-                                \For{$k = 1,\dots,s-1$}
-                                    \State{Compute current value of Hamiltonian $H_{\Theta}(\hat{y}_i^{j,[k]})$}
-                                    \State Compute $\nabla H_{\Theta}(\hat{y}_i^{j,[k]})$ \Comment{With automatic differentiation}
-                                    \State{Compute stage $\hat{y}_i^{j,[k+1]}$}
-                                    %\State{$k \gets k+1$}
-                                    \EndFor
-                            \State{Compute $\hat{y}_i^{j+1}$}
-                            \State{Increase Loss following equation ...
-                            %\State {$j \gets j+1$}
-                            \EndFor
-                    \EndFor
-                        \State{Optimize Loss}
-                    %\EndProcedure
-                    
-            \end{algorithmic}
-        \end{algorithm}
-
-
+based on the same approximation of the Hamiltonian, and hence on the same weights :math:`\Theta`. 
 
 Architecture of the network
 ============================
@@ -95,6 +65,7 @@ definite matrix with entries :math:`m_{ij}`. Therefore, we aim at learning a con
 
 
 .. math::
+    :label: mmatr
 
     \begin{align}
         \begin{bmatrix}
@@ -118,18 +89,21 @@ define a metric on :math:`\mathbb{R}^n` and the assumption we are making guarant
 potential energy, a possible modelling strategy is to work with standard feedforward neural networks, and hence to define
 
 .. math::
+    :label: pot
 
     \begin{align}
         V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
     \end{align}
 
- .. math::
+.. math::
+    :label: pnn
 
     \begin{align}       
         \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
     \end{align}
 
 .. math::
+    :label: fnn
 
     \begin{align}
         f_{\theta_i}(u) := \Sigma(W_iu + b_i),\;\mathbb{R}^n\ni z\mapsto \Sigma(z) = [\sigma(z_1),...,\sigma(z_n)]\in\mathbb{R}^n,
@@ -138,6 +112,7 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 for example with :math:`\sigma(x) = \tanh(x)`. Therefore, we have that
 
 .. math::
+    :label: tpar
 
     \begin{align}
         \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).

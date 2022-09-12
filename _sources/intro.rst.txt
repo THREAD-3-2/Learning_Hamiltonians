@@ -18,6 +18,7 @@ given sample data information of their solutions.
 Let us consider Hamiltonian functions of the form
 
 .. math::
+    :label: ham
 
     \begin{align}
         H(q,p) = \frac{1}{2}p^TM^{-1}(q)p + V(q),
@@ -34,6 +35,7 @@ of the tangent space at :math:`q`, :math:`T_q\mathcal{Q}`, as vectors in :math:`
 orthogonal projection of an arbitrary vector :math:`v\in\mathbb{R}^n` onto :math:`T_q \mathcal{Q}`, i.e.
 
 .. math::
+    :label: proj
 
     \begin{align}
         \forall q\in \mathcal{Q},\text{ we set }P(q):\mathbb{R}^n\rightarrow T_q\mathcal{Q},\;\;v\mapsto P(q)v.
@@ -41,10 +43,11 @@ orthogonal projection of an arbitrary vector :math:`v\in\mathbb{R}^n` onto :math
 
 :math:`P(q)^T` can be seen as a map sending vectors of :math:`\mathbb{R}^n` into covectors in :math:`T_q^*\mathcal{Q}`. If :math:`g(q)` is differentiable, 
 assuming :math:`G(q)` is the Jacobian matrix of :math:`g(q)`, we have :math:`T_q \mathcal{Q} = \mathrm{Ker}\,G(q)`, and 
-so :math:`P(q) = I_n - G(q)\left(G(q)^TG(q))\right)^{-1}G(q)^T`, where :math:`I_n\in\mathbb{R}^{n\times n}` is the identity matrix. 
+so :math:`P(q) = I_n - G(q)\left(G(q)^TG(q)\right)^{-1}G(q)^T`, where :math:`I_n\in\mathbb{R}^{n\times n}` is the identity matrix. 
 This projection map allows us to define Hamilton's equations as follows
 
 .. math::
+    :label: chameq
 
     \begin{align}
         \begin{cases}
@@ -56,6 +59,7 @@ This projection map allows us to define Hamilton's equations as follows
 where
 
 .. math::
+    :label: wmatr
 
     \begin{align}
         \begin{split}
@@ -64,14 +68,15 @@ where
     \end{align}
 
 
-Systems on :math:`T^*S^2`
-=========================
+Systems defined on products of spheres
+=======================================
 
-Let the phase space of the system be :math:`\mathcal{M}=(T^*S^2)^k`, where :math:`S^2\subset\mathbb{R}^3`, :math:`k\in \mathbb{N}^+`. 
+Let the phase space of the system be :math:`\mathcal{M}=(T^*S^2)^k`, where :math:`S^2` is the unit sphere in :math:`\mathbb{R}^3`, :math:`k\in \mathbb{N}^+`. 
 We coordinatize :math:`\mathcal{M}` with :math:`(q,p)=(q_1,\dots,q_k,p_1,\dots,p_k)\in \mathbb{R}^{6k}`. In this case, when :math:`p\in \mathbb{R}^{3k}` is 
-intended as the vector of linear momenta, the matrix :math:`M(q)` in equation ... is a block matrix, with
+intended as the vector of linear momenta, the matrix :math:`M(q)` in equation :eq:`ham` is a block matrix, with
 
 .. math::
+    :label: mmatrp
 
     \begin{align}
         i,j = 1,...,k,\quad \mathbb{R}^{3\times 3}\ni M(q)_{ij} = \begin{cases} m_{ii}I_3,\quad i=j\\
@@ -82,10 +87,11 @@ intended as the vector of linear momenta, the matrix :math:`M(q)` in equation ..
 The matrix having constant entries :math:`m_{ij}` is symmetric and positive definite. 
 
 For example, in the case of a spherical pendulum we have :math:`k=1`, hence the Hamiltonian dynamics is defined on its cotangent bundle :math:`T^*S^2`. 
-With this specific choice of the geometry, the formulation presented in equation ... simplifies considerably. Indeed :math:`P(q) = I_3-qq^T` which 
-implies :math:`W(q,p) = pq^T-qp^T`. Replacing these expressions in ... and using the triple product rule we end up with the following set of ODEs
+With this specific choice of the geometry, the formulation presented in equation :eq:`chameq` simplifies considerably. Indeed :math:`P(q) = I_3-qq^T` which 
+implies :math:`W(q,p) = pq^T-qp^T`. Replacing these expressions in :eq:`chameq` and using the triple product rule we end up with the following set of ODEs
 
 .. math::
+    :label: hameqpend
 
     \begin{align}
         \begin{cases}
@@ -97,6 +103,7 @@ implies :math:`W(q,p) = pq^T-qp^T`. Replacing these expressions in ... and using
 We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action 
 
 .. math::
+    :label: act
 
     \begin{align}
         \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
@@ -107,6 +114,7 @@ ODE... We represent a generic element of the special Euclidean group :math:`G=SE
 rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector field :math:`X(q,p)` can be expressed as :math:`\psi_*(F[H](q,p))(q,p)` with
 
 .. math::
+    :label: infgen
 
     \begin{align}
         \psi_*((\xi,\eta))(q,p) = (\xi\times q,\xi\times p + \eta\times q), \quad (\xi,\eta)\in \mathfrak{g= se}(3)
@@ -115,6 +123,7 @@ rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector field :math
 and
 
 .. math::
+    :label: mapfham
 
     \begin{align}
         F[H](q,p) = (\xi,\eta)=\left(q\times \frac{\partial H(q,p)}{\partial p},\frac{\partial H(q,p)}{\partial q}\times q + \frac{\partial H(q,p)}{\partial p}\times p \right).

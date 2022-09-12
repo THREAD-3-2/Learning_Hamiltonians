@@ -46,8 +46,8 @@ This explains why multiple approaches have been proposed to approximate this ene
 and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks,
 given sample data information of their solutions.</p>
 <p>Let us consider Hamiltonian functions of the form</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-ham">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ham" title="Permalink to this equation">¶</a></span>\[\begin{align}
     H(q,p) = \frac{1}{2}p^TM^{-1}(q)p + V(q),
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(M(q)\)</span> is the mass matrix of the system, possibly depending on the configuration <span class="math notranslate nohighlight">\(q\in\mathbb{R}^n\)</span>, and <span class="math notranslate nohighlight">\(V(q)\)</span> is
@@ -59,66 +59,66 @@ We assume that the components <span class="math notranslate nohighlight">\(g_i:\
 so that the Hamiltonian is defined on the <span class="math notranslate nohighlight">\((2n-2m)\)</span> dimensional cotangent bundle <span class="math notranslate nohighlight">\(\mathcal{M}=T^*\mathcal{Q}\)</span>. Working with elements
 of the tangent space at <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(T_q\mathcal{Q}\)</span>, as vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, we introduce a linear operator that defines the
 orthogonal projection of an arbitrary vector <span class="math notranslate nohighlight">\(v\in\mathbb{R}^n\)</span> onto <span class="math notranslate nohighlight">\(T_q \mathcal{Q}\)</span>, i.e.</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-proj">
+<span class="eqno">(2)<a class="headerlink" href="#equation-proj" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \forall q\in \mathcal{Q},\text{ we set }P(q):\mathbb{R}^n\rightarrow T_q\mathcal{Q},\;\;v\mapsto P(q)v.
 \end{align}\]</div>
 <p><span class="math notranslate nohighlight">\(P(q)^T\)</span> can be seen as a map sending vectors of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> into covectors in <span class="math notranslate nohighlight">\(T_q^*\mathcal{Q}\)</span>. If <span class="math notranslate nohighlight">\(g(q)\)</span> is differentiable,
 assuming <span class="math notranslate nohighlight">\(G(q)\)</span> is the Jacobian matrix of <span class="math notranslate nohighlight">\(g(q)\)</span>, we have <span class="math notranslate nohighlight">\(T_q \mathcal{Q} = \mathrm{Ker}\,G(q)\)</span>, and
-so <span class="math notranslate nohighlight">\(P(q) = I_n - G(q)\left(G(q)^TG(q))\right)^{-1}G(q)^T\)</span>, where <span class="math notranslate nohighlight">\(I_n\in\mathbb{R}^{n\times n}\)</span> is the identity matrix.
+so <span class="math notranslate nohighlight">\(P(q) = I_n - G(q)\left(G(q)^TG(q)\right)^{-1}G(q)^T\)</span>, where <span class="math notranslate nohighlight">\(I_n\in\mathbb{R}^{n\times n}\)</span> is the identity matrix.
 This projection map allows us to define Hamilton’s equations as follows</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+<div class="math notranslate nohighlight" id="equation-chameq">
+<span class="eqno">(3)<a class="headerlink" href="#equation-chameq" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
     \begin{cases}
     \dot{q} = P(q)\partial_pH(q,p)\\
     \dot{p} = -P(q)^T\partial_qH(q,p) + W(q,p)\partial_pH(q,p),
     \end{cases}
 \end{align}\end{split}\]</div>
 <p>where</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+<div class="math notranslate nohighlight" id="equation-wmatr">
+<span class="eqno">(4)<a class="headerlink" href="#equation-wmatr" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
     \begin{split}
     W(q,p)&amp;=P(q)^T\Lambda(q,p)^T P(q) + \Lambda(q,p)P(q) -P(q)^T\Lambda(q,p)^T,\\ &amp;\text{with}\quad \Lambda(q,p) = \frac{\partial P(q)^Tp}{\partial q}.
     \end{split}
 \end{align}\end{split}\]</div>
 </section>
-<section id="systems-on-t-s-2">
-<h2>Systems on <span class="math notranslate nohighlight">\(T^*S^2\)</span><a class="headerlink" href="#systems-on-t-s-2" title="Permalink to this heading">¶</a></h2>
-<p>Let the phase space of the system be <span class="math notranslate nohighlight">\(\mathcal{M}=(T^*S^2)^k\)</span>, where <span class="math notranslate nohighlight">\(S^2\subset\mathbb{R}^3\)</span>, <span class="math notranslate nohighlight">\(k\in \mathbb{N}^+\)</span>.
+<section id="systems-defined-on-products-of-spheres">
+<h2>Systems defined on products of spheres<a class="headerlink" href="#systems-defined-on-products-of-spheres" title="Permalink to this heading">¶</a></h2>
+<p>Let the phase space of the system be <span class="math notranslate nohighlight">\(\mathcal{M}=(T^*S^2)^k\)</span>, where <span class="math notranslate nohighlight">\(S^2\)</span> is the unit sphere in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>, <span class="math notranslate nohighlight">\(k\in \mathbb{N}^+\)</span>.
 We coordinatize <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> with <span class="math notranslate nohighlight">\((q,p)=(q_1,\dots,q_k,p_1,\dots,p_k)\in \mathbb{R}^{6k}\)</span>. In this case, when <span class="math notranslate nohighlight">\(p\in \mathbb{R}^{3k}\)</span> is
-intended as the vector of linear momenta, the matrix <span class="math notranslate nohighlight">\(M(q)\)</span> in equation … is a block matrix, with</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+intended as the vector of linear momenta, the matrix <span class="math notranslate nohighlight">\(M(q)\)</span> in equation <a class="reference internal" href="#equation-ham">(1)</a> is a block matrix, with</p>
+<div class="math notranslate nohighlight" id="equation-mmatrp">
+<span class="eqno">(5)<a class="headerlink" href="#equation-mmatrp" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
     i,j = 1,...,k,\quad \mathbb{R}^{3\times 3}\ni M(q)_{ij} = \begin{cases} m_{ii}I_3,\quad i=j\\
     m_{ij}(I_3-q_iq_i^T),\quad \text{otherwise,}
     \end{cases}
 \end{align}\end{split}\]</div>
 <p>The matrix having constant entries <span class="math notranslate nohighlight">\(m_{ij}\)</span> is symmetric and positive definite.</p>
 <p>For example, in the case of a spherical pendulum we have <span class="math notranslate nohighlight">\(k=1\)</span>, hence the Hamiltonian dynamics is defined on its cotangent bundle <span class="math notranslate nohighlight">\(T^*S^2\)</span>.
-With this specific choice of the geometry, the formulation presented in equation … simplifies considerably. Indeed <span class="math notranslate nohighlight">\(P(q) = I_3-qq^T\)</span> which
-implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>. Replacing these expressions in … and using the triple product rule we end up with the following set of ODEs</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+With this specific choice of the geometry, the formulation presented in equation <a class="reference internal" href="#equation-chameq">(3)</a> simplifies considerably. Indeed <span class="math notranslate nohighlight">\(P(q) = I_3-qq^T\)</span> which
+implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>. Replacing these expressions in <a class="reference internal" href="#equation-chameq">(3)</a> and using the triple product rule we end up with the following set of ODEs</p>
+<div class="math notranslate nohighlight" id="equation-hameqpend">
+<span class="eqno">(6)<a class="headerlink" href="#equation-hameqpend" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
     \begin{cases}
     \dot{q} &amp;= (I-qq^T)\partial_pH(q,p)\\
     \dot{p} &amp;= -(I-qq^T)\partial_qH(q,p) + \partial_pH(q,p)\times (p\times q).
     \end{cases}
 \end{align}\end{split}\]</div>
 <p>We remarks briefly that <span class="math notranslate nohighlight">\(T^*S^2\)</span> is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-act">
+<span class="eqno">(7)<a class="headerlink" href="#equation-act" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
 \end{align}\]</div>
 <p>where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use Lie group integrators to solve numerically
 ODE… We represent a generic element of the special Euclidean group <span class="math notranslate nohighlight">\(G=SE(3)\)</span> as an ordered pair <span class="math notranslate nohighlight">\((R,r)\)</span>, where <span class="math notranslate nohighlight">\(R\in SO(3)\)</span> is a
 rotation matrix and <span class="math notranslate nohighlight">\(r\in\mathbb{R}^3\)</span> is a vector. The vector field <span class="math notranslate nohighlight">\(X(q,p)\)</span> can be expressed as <span class="math notranslate nohighlight">\(\psi_*(F[H](q,p))(q,p)\)</span> with</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-infgen">
+<span class="eqno">(8)<a class="headerlink" href="#equation-infgen" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \psi_*((\xi,\eta))(q,p) = (\xi\times q,\xi\times p + \eta\times q), \quad (\xi,\eta)\in \mathfrak{g= se}(3)
 \end{align}\]</div>
 <p>and</p>
-<div class="math notranslate nohighlight">
-\[\begin{align}
+<div class="math notranslate nohighlight" id="equation-mapfham">
+<span class="eqno">(9)<a class="headerlink" href="#equation-mapfham" title="Permalink to this equation">¶</a></span>\[\begin{align}
     F[H](q,p) = (\xi,\eta)=\left(q\times \frac{\partial H(q,p)}{\partial p},\frac{\partial H(q,p)}{\partial q}\times q + \frac{\partial H(q,p)}{\partial p}\times p \right).
 \end{align}\]</div>
 <p>A similar reasoning can be extended to a chain of <span class="math notranslate nohighlight">\(k\)</span> connected pendula, and hence to a system on <span class="math notranslate nohighlight">\((T^*S^2)^k\)</span>. The main idea is to replicate
@@ -147,7 +147,7 @@ in <a class="reference external" href="https://doi.org/10.1080/00207160.2021.196
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Example</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#problem-description">Problem description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#systems-on-t-s-2">Systems on <span class="math notranslate nohighlight">\(T^*S^2\)</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#systems-defined-on-products-of-spheres">Systems defined on products of spheres</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="learn.html">Algorithms</a></li>
