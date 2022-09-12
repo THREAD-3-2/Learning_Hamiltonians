@@ -1,0 +1,3 @@
+# requirements for package development and CI
+sphinx
+-e .
