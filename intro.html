@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Example &#8212; Learning_Hamiltonians 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Learning procedure" href="learn.html" />
+    <link rel="prev" title="Documentation of Learning_Hamiltonians" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="example">
+<span id="intro"></span><h1>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h1>
+<section id="problem-description">
+<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this heading">¶</a></h2>
+<p>There is an increasing interest in modelling and computation of physical systems with neural networks,
+given the the outstanding results they achieved in learning patterns from data. We consider Hamiltonian mechanical systems,
+whose dynamics is fully determined by one scalar function, the Hamiltonian, which represent the energy of the system.
+This explains why multiple approaches have been proposed to approximate this energy function,
+and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks,
+given sample data information of their solutions.</p>
+<p>Let us consider Hamiltonian functions of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    H(q,p) = \frac{1}{2}p^TM^{-1}(q)p + V(q),
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(M(q)\)</span> is the mass matrix of the system, possibly depending on the configuration <span class="math notranslate nohighlight">\(q\in\mathbb{R}^n\)</span>, and <span class="math notranslate nohighlight">\(V(q)\)</span> is
+the potential energy of the system.  The solution trajectories are often constrained to evolve on a submanifold of a linear vector space.
+In particular, we focus on systems that are holonomically constrained on some configuration
+manifold <span class="math notranslate nohighlight">\(\mathcal{Q}=\{q\in\mathbb{R}^n:\,g(q)=0\}\)</span> embedded in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and we model them by means of some projection operator.
+As a result, the vector field is written in such a way that it directly respects the constraints, without the addition of algebraic equations.
+We assume that the components <span class="math notranslate nohighlight">\(g_i:\mathbb{R}^n\rightarrow \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(i=1,...,m\)</span>, are functionally independent on the zero level set,
+so that the Hamiltonian is defined on the <span class="math notranslate nohighlight">\((2n-2m)\)</span> dimensional cotangent bundle <span class="math notranslate nohighlight">\(\mathcal{M}=T^*\mathcal{Q}\)</span>. Working with elements
+of the tangent space at <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(T_q\mathcal{Q}\)</span>, as vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, we introduce a linear operator that defines the
+orthogonal projection of an arbitrary vector <span class="math notranslate nohighlight">\(v\in\mathbb{R}^n\)</span> onto <span class="math notranslate nohighlight">\(T_q \mathcal{Q}\)</span>, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    \forall q\in \mathcal{Q},\text{ we set }P(q):\mathbb{R}^n\rightarrow T_q\mathcal{Q},\;\;v\mapsto P(q)v.
+\end{align}\]</div>
+<p><span class="math notranslate nohighlight">\(P(q)^T\)</span> can be seen as a map sending vectors of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> into covectors in <span class="math notranslate nohighlight">\(T_q^*\mathcal{Q}\)</span>. If <span class="math notranslate nohighlight">\(g(q)\)</span> is differentiable,
+assuming <span class="math notranslate nohighlight">\(G(q)\)</span> is the Jacobian matrix of <span class="math notranslate nohighlight">\(g(q)\)</span>, we have <span class="math notranslate nohighlight">\(T_q \mathcal{Q} = \mathrm{Ker}\,G(q)\)</span>, and
+so <span class="math notranslate nohighlight">\(P(q) = I_n - G(q)\left(G(q)^TG(q))\right)^{-1}G(q)^T\)</span>, where <span class="math notranslate nohighlight">\(I_n\in\mathbb{R}^{n\times n}\)</span> is the identity matrix.
+This projection map allows us to define Hamilton’s equations as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \begin{cases}
+    \dot{q} = P(q)\partial_pH(q,p)\\
+    \dot{p} = -P(q)^T\partial_qH(q,p) + W(q,p)\partial_pH(q,p),
+    \end{cases}
+\end{align}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \begin{split}
+    W(q,p)&amp;=P(q)^T\Lambda(q,p)^T P(q) + \Lambda(q,p)P(q) -P(q)^T\Lambda(q,p)^T,\\ &amp;\text{with}\quad \Lambda(q,p) = \frac{\partial P(q)^Tp}{\partial q}.
+    \end{split}
+\end{align}\end{split}\]</div>
+</section>
+<section id="systems-on-t-s-2">
+<h2>Systems on <span class="math notranslate nohighlight">\(T^*S^2\)</span><a class="headerlink" href="#systems-on-t-s-2" title="Permalink to this heading">¶</a></h2>
+<p>Let the phase space of the system be <span class="math notranslate nohighlight">\(\mathcal{M}=(T^*S^2)^k\)</span>, where <span class="math notranslate nohighlight">\(S^2\subset\mathbb{R}^3\)</span>, <span class="math notranslate nohighlight">\(k\in \mathbb{N}^+\)</span>.
+We coordinatize <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> with <span class="math notranslate nohighlight">\((q,p)=(q_1,\dots,q_k,p_1,\dots,p_k)\in \mathbb{R}^{6k}\)</span>. In this case, when <span class="math notranslate nohighlight">\(p\in \mathbb{R}^{3k}\)</span> is
+intended as the vector of linear momenta, the matrix <span class="math notranslate nohighlight">\(M(q)\)</span> in equation … is a block matrix, with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    i,j = 1,...,k,\quad \mathbb{R}^{3\times 3}\ni M(q)_{ij} = \begin{cases} m_{ii}I_3,\quad i=j\\
+    m_{ij}(I_3-q_iq_i^T),\quad \text{otherwise,}
+    \end{cases}
+\end{align}\end{split}\]</div>
+<p>The matrix having constant entries <span class="math notranslate nohighlight">\(m_{ij}\)</span> is symmetric and positive definite.</p>
+<p>For example, in the case of a spherical pendulum we have <span class="math notranslate nohighlight">\(k=1\)</span>, hence the Hamiltonian dynamics is defined on its cotangent bundle <span class="math notranslate nohighlight">\(T^*S^2\)</span>.
+With this specific choice of the geometry, the formulation presented in equation … simplifies considerably. Indeed <span class="math notranslate nohighlight">\(P(q) = I_3-qq^T\)</span> which
+implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>. Replacing these expressions in … and using the triple product rule we end up with the following set of ODEs</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \begin{cases}
+    \dot{q} &amp;= (I-qq^T)\partial_pH(q,p)\\
+    \dot{p} &amp;= -(I-qq^T)\partial_qH(q,p) + \partial_pH(q,p)\times (p\times q).
+    \end{cases}
+\end{align}\end{split}\]</div>
+<p>We remarks briefly that <span class="math notranslate nohighlight">\(T^*S^2\)</span> is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
+\end{align}\]</div>
+<p>where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use Lie group integrators to solve numerically
+ODE… We represent a generic element of the special Euclidean group <span class="math notranslate nohighlight">\(G=SE(3)\)</span> as an ordered pair <span class="math notranslate nohighlight">\((R,r)\)</span>, where <span class="math notranslate nohighlight">\(R\in SO(3)\)</span> is a
+rotation matrix and <span class="math notranslate nohighlight">\(r\in\mathbb{R}^3\)</span> is a vector. The vector field <span class="math notranslate nohighlight">\(X(q,p)\)</span> can be expressed as <span class="math notranslate nohighlight">\(\psi_*(F[H](q,p))(q,p)\)</span> with</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    \psi_*((\xi,\eta))(q,p) = (\xi\times q,\xi\times p + \eta\times q), \quad (\xi,\eta)\in \mathfrak{g= se}(3)
+\end{align}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+    F[H](q,p) = (\xi,\eta)=\left(q\times \frac{\partial H(q,p)}{\partial p},\frac{\partial H(q,p)}{\partial q}\times q + \frac{\partial H(q,p)}{\partial p}\times p \right).
+\end{align}\]</div>
+<p>A similar reasoning can be extended to a chain of <span class="math notranslate nohighlight">\(k\)</span> connected pendula, and hence to a system on <span class="math notranslate nohighlight">\((T^*S^2)^k\)</span>. The main idea is to replicate
+both the equations and the expression <span class="math notranslate nohighlight">\(F[H]\)</span> for all the <span class="math notranslate nohighlight">\(k\)</span> copies of <span class="math notranslate nohighlight">\(T^*S^2\)</span>. A more detailed explanation can be found
+in <a class="reference external" href="https://doi.org/10.1080/00207160.2021.1966772">(Celledoni, Çokaj, Leone, Murari and Owren, 2021)</a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Learning_Hamiltonians</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#problem-description">Problem description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#systems-on-t-s-2">Systems on <span class="math notranslate nohighlight">\(T^*S^2\)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="learn.html">Learning procedure</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Documentation of <cite>Learning_Hamiltonians</cite></a></li>
+      <li>Next: <a href="learn.html" title="next chapter">Learning procedure</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Elena Celledoni, Andrea Leone, Davide Murari, Brynjulf Owren.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/intro.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
