@@ -72,12 +72,9 @@ we report one training epoch for a batch of data points.
                                     \EndFor
                             \State{Compute $\hat{y}_i^{j+1}$}
                             \State{Increase Loss following equation ...
-                            %\State {$j \gets j+1$}
                             \EndFor
                     \EndFor
-                        \State{Optimize Loss}
-                    %\EndProcedure
-                    
+                        \State{Optimize Loss}                    
             \end{algorithmic}
         \end{algorithm}
 
@@ -123,7 +120,7 @@ potential energy, a possible modelling strategy is to work with standard feedfor
         V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
     \end{align}
 
- .. math::
+.. math::
 
     \begin{align}       
         \theta_i = (W_i,b_i)\in\mathbb{R}^{n_i\times n_{i-1}}\times \mathbb{R}^{n_i},\;\theta:=[\theta_1,...,\theta_m],
