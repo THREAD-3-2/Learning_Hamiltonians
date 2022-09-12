@@ -7,7 +7,7 @@ learning the Hamiltonian of a constrained mechanical system.
 It is part of the source code for the paper `(Celledoni, Leone, Murari and Owren, 2022) <https://doi.org/10.1016/j.cam.2022.114608>`_ and uses `PyTorch <https://pytorch.org/>`_ as 
 deep learning library, in particular the modules related to `automatic differentiation <https://pytorch.org/docs/stable/autograd.html>`_, 
 `optimization algorithms <https://pytorch.org/docs/stable/optim.html>`_ and `neural networks <https://pytorch.org/docs/stable/generated/torch.nn.Module.html>`_.
-An introduction to the problem and a description of the system under consideration are provided in :ref:`Example <intro>`. The learning procedure is presented in :ref:`Algorithms <learn>`.   
+An introduction to the problem and a description of the system under consideration are provided in :ref:`Example <intro>`. The :ref:`learning procedure <learn>` is presented in the homonymous section.   
 The code can be run from the `main file <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/code/learn_hamiltonian.ipynb>`_.
 
 
