@@ -8,7 +8,7 @@ It is part of the source code for the paper `(Celledoni, Leone, Murari and Owren
 deep learning library, in particular the modules related to `automatic differentiation <https://pytorch.org/docs/stable/autograd.html>`_, 
 `optimization algorithms <https://pytorch.org/docs/stable/optim.html>`_ and `neural networks <https://pytorch.org/docs/stable/generated/torch.nn.Module.html>`_.
 An introduction to the problem and a description of the system under consideration are provided in :ref:`Example <intro>`. The learning procedure is presented in :ref:`Algorithms <learn>`.   
-The code can be run from the `main file <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/learn_hamiltonian.ipynb>`_.
+The code can be run from the `main file <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/code/learn_hamiltonian.ipynb>`_.
 
 
 Contents
