@@ -51,6 +51,37 @@ Indeed, the weight sharing principle of RNNs is reproduced by the time steps in 
 based on the same approximation of the Hamiltonian, and hence on the same weights :math:`\Theta`. In Algorithm WRITE ALGORITHM 
 we report one training epoch for a batch of data points.
 
+.. pcode::
+   :linenos:
+
+        \begin{algorithm}[h!]
+            \begin{algorithmic}
+                \caption{One epoch of the recurrent approximation of the Hamiltonian.}
+                \label{alg:one}
+                        \State {Choose a numerical integrator ($s$ stages)}
+                        \State {$\hat{N}\gets \texttt{batch size}$,\qquad $\text{Loss} \gets 0$}
+                        \For {$i=1,\dots,\hat{N}$}
+                        \State {$\hat{y}_i^1 \gets x_i$}
+                            \For {$j = 1,\dots,M$}
+                                \State {$\hat{y}_i^{j,[1]} \gets \hat{y}_i^j$}
+                                \For{$k = 1,\dots,s-1$}
+                                    \State{Compute current value of Hamiltonian $H_{\Theta}(\hat{y}_i^{j,[k]})$}
+                                    \State Compute $\nabla H_{\Theta}(\hat{y}_i^{j,[k]})$ \Comment{With automatic differentiation}
+                                    \State{Compute stage $\hat{y}_i^{j,[k+1]}$}
+                                    %\State{$k \gets k+1$}
+                                    \EndFor
+                            \State{Compute $\hat{y}_i^{j+1}$}
+                            \State{Increase Loss following equation ...
+                            %\State {$j \gets j+1$}
+                            \EndFor
+                    \EndFor
+                        \State{Optimize Loss}
+                    %\EndProcedure
+                    
+            \end{algorithmic}
+        \end{algorithm}
+
+
 
 Architecture of the network
 ============================
