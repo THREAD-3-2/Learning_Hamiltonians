@@ -1,8 +1,8 @@
 .. _learn:
 
-===========
-Algorithms
-===========
+============
+ Algorithms
+============
 
 
 Learing procedure
@@ -53,7 +53,7 @@ we report one training epoch for a batch of data points.
 
 
 Architecture of the network
-===========================
+============================
 
 In this example, the role of the neural network is to model the Hamiltonian, i.e. a scalar function defined on the phase 
 space :math:`\mathbb{R}^{2n}`. Thus, the starting and arrival spaces are fixed.
@@ -90,7 +90,7 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 
     \begin{align}
         V(q) \approx V_{\theta}(q) = f_{\theta_m}\circ ...\circ f_{\theta_1}(q)
-    \end{align
+    \end{align}
 
  .. math::
 
