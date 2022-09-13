@@ -109,9 +109,12 @@ We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is ac
         \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
     \end{align}
 
-where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use Lie group integrators to solve numerically 
-ODE... We represent a generic element of the special Euclidean group :math:`G=SE(3)` as an ordered pair :math:`(R,r)`, where :math:`R\in SO(3)` is a 
-rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector field :math:`X(q,p)` can be expressed as :math:`\psi_*(F[H](q,p))(q,p)` with
+where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use also Lie group integrators to solve numerically 
+the system :eq:`hameqpend`. In the `code <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/code/learn_hamiltonian.ipynb>`_, both Lie group 
+integrators (Lie-Euler and commutator-free of order 4) and classical Runge-Kutta schemes (Euler and Runge-Kutta of order four)
+are implemented for the time integration of :eq:`hameqpend` during the training procedure. We represent a generic element of the special Euclidean group :math:`G=SE(3)` as 
+an ordered pair :math:`(R,r)`, where :math:`R\in SO(3)` is a rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector 
+field :math:`X(q,p)` can be expressed as :math:`\psi_*(F[H](q,p))(q,p)` with
 
 .. math::
     :label: infgen
