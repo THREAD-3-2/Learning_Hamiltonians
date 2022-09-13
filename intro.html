@@ -109,9 +109,12 @@ implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>
 <span class="eqno">(7)<a class="headerlink" href="#equation-act" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
 \end{align}\]</div>
-<p>where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use Lie group integrators to solve numerically
-ODE… We represent a generic element of the special Euclidean group <span class="math notranslate nohighlight">\(G=SE(3)\)</span> as an ordered pair <span class="math notranslate nohighlight">\((R,r)\)</span>, where <span class="math notranslate nohighlight">\(R\in SO(3)\)</span> is a
-rotation matrix and <span class="math notranslate nohighlight">\(r\in\mathbb{R}^3\)</span> is a vector. The vector field <span class="math notranslate nohighlight">\(X(q,p)\)</span> can be expressed as <span class="math notranslate nohighlight">\(\psi_*(F[H](q,p))(q,p)\)</span> with</p>
+<p>where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use also Lie group integrators to solve numerically
+the system <a class="reference internal" href="#equation-hameqpend">(6)</a>. In the <a class="reference external" href="https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/code/learn_hamiltonian.ipynb">code</a>, both Lie group
+integrators (Lie-Euler and commutator-free of order 4) and classical Runge-Kutta schemes (Euler and Runge-Kutta of order four)
+are implemented for the time integration of <a class="reference internal" href="#equation-hameqpend">(6)</a> during the training procedure. We represent a generic element of the special Euclidean group <span class="math notranslate nohighlight">\(G=SE(3)\)</span> as
+an ordered pair <span class="math notranslate nohighlight">\((R,r)\)</span>, where <span class="math notranslate nohighlight">\(R\in SO(3)\)</span> is a rotation matrix and <span class="math notranslate nohighlight">\(r\in\mathbb{R}^3\)</span> is a vector. The vector
+field <span class="math notranslate nohighlight">\(X(q,p)\)</span> can be expressed as <span class="math notranslate nohighlight">\(\psi_*(F[H](q,p))(q,p)\)</span> with</p>
 <div class="math notranslate nohighlight" id="equation-infgen">
 <span class="eqno">(8)<a class="headerlink" href="#equation-infgen" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \psi_*((\xi,\eta))(q,p) = (\xi\times q,\xi\times p + \eta\times q), \quad (\xi,\eta)\in \mathfrak{g= se}(3)
