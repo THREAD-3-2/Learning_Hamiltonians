@@ -19,7 +19,7 @@
 
 project = 'Learning_Hamiltonians'
 copyright = '2022, Elena Celledoni, Andrea Leone, Davide Murari, Brynjulf Owren'
-author = 'Andrea Leone'
+author = 'Andrea Leone, Davide Murari'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1'
