@@ -56,6 +56,8 @@ Architecture of the network
 In this example, the role of the neural network is to model the Hamiltonian, i.e. a scalar function defined on the phase 
 space :math:`\mathbb{R}^{2n}`. Thus, the starting and arrival spaces are fixed.
 
+.. autofunction:: code.nn_functions.hatNN
+
 We leverage the form of the kinetic energy, where :math:`M(q)` is modelled through a constant symmetric and positive 
 definite matrix with entries :math:`m_{ij}`. Therefore, we aim at learning a constant matrix 
 :math:`A\in\mathbb{R}^{k\times k}` and a vector :math:`b\in\mathbb{R}^k` so that
