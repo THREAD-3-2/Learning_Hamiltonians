@@ -5,6 +5,8 @@ from autograd import grad
 import autograd.numpy as np
 import scipy.integrate
 
+__all__ = ['hatNN', 'fManiAlgebraNN', 'expso3NN', 'expse3NN', 'expse3NNn', 'actionSE3NN', 'actionse3NNn', 'LieEulerNN', 'CF4NN', 'predictedVF', 'ExpEuler', 'RK4']
+
 e3 = np.array([0,0,1]) # third axis of the intertial frame
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
