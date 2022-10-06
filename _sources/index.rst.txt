@@ -15,9 +15,10 @@ Contents
 ========
 
 .. toctree::
+   installation
    intro
    learn
-   :maxdepth: 3
+   :maxdepth: 2
 
 
 Indices and tables
