@@ -103,7 +103,7 @@ This system is implemented in
 
 .. autofunction:: Learning_Hamiltonians.trajectories.dynamics
 
-to generate trainind data, and this function in turn makes use of
+to generate training data, and this function in turn makes use of
 
 .. autofunction:: Learning_Hamiltonians.trajectories.Hq
 
@@ -112,7 +112,7 @@ to generate trainind data, and this function in turn makes use of
 .. autofunction:: Learning_Hamiltonians.trajectories.MatrR
 
 .. autofunction:: Learning_Hamiltonians.trajectories.hat
-    
+
 .. autofunction:: Learning_Hamiltonians.trajectories.Massm
 
 The system :eq:`hameqpend` is also defined in 
