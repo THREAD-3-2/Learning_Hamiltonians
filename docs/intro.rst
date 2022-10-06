@@ -15,9 +15,9 @@ This explains why multiple approaches have been proposed to approximate this ene
 and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks, 
 given sample data information of their solutions.  
 
-.. autofunction:: code.trajectories.hat
+.. autofunction:: Learning_Hamiltonians.trajectories.hat
 
-.. autofunction:: code.hat
+.. autofunction:: Learning_Hamiltonians.hat
 
 .. autofunction:: hat
 
