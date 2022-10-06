@@ -258,7 +258,7 @@ isLieGroupMethod = True # is integrator a Lie group method?
 
 checkpoint = 20
 
-for epoch in range(5):
+for epoch in range(3):
 
     running_loss = 0.0
 
