@@ -2,7 +2,7 @@
  Documentation of `Learning_Hamiltonians`
 ========================================
 
-`Learning Hamiltonians <https://github.com/THREAD-3-2/Learning_Hamiltonians>`_ is a Jupyter notebook with a Python code for 
+`Learning Hamiltonians <https://github.com/THREAD-3-2/Learning_Hamiltonians>`_ is a Python code for 
 learning the Hamiltonian of a constrained mechanical system. 
 It is part of the source code for the paper `(Celledoni, Leone, Murari and Owren, 2022) <https://doi.org/10.1016/j.cam.2022.114608>`_ and uses `PyTorch <https://pytorch.org/>`_ as 
 deep learning library, in particular the modules related to `automatic differentiation <https://pytorch.org/docs/stable/autograd.html>`_, 
