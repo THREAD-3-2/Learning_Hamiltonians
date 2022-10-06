@@ -104,12 +104,12 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     # add ability to automatically extract in-line documentation from MATLAB code
-    'sphinxcontrib.matlab',
+    # 'sphinxcontrib.matlab',
 ]
 
 # specify the source folder of the MATLAB code
 # For a pure MATLAB project, you probably want to use `src` as the name.
-matlab_src_dir = "../matlab_src/"
+# matlab_src_dir = "../matlab_src/"
 # For a pure MATLAB project, you can specify `mat` as the primary domain to save some typing,
 # e.g. `autoclass` instead of `mat:autoclass` (see matlab.rst file).
 # primary_domain = 'mat'
