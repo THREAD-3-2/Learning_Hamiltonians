@@ -6,15 +6,19 @@ import autograd.numpy as np
 import scipy.integrate
 
 from Learning_Hamiltonians.trajectories import *
+from Learning_Hamiltonians.nn_functions import *
 
 __all__ = ['Hamiltonian', 'predicted']
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
-# Paramaters to generate the trajectories
 
-e3 = np.array([0,0,1]) # third axis of the intertial frame
+#############################################################################################
+##################### GENERATION OF TRAINING and test trajectories ##########################
+#############################################################################################
+
+# Paramaters to generate the trajectories
 
 T = 0.1 # final time
 M = 5 # number of time steps
@@ -25,8 +29,7 @@ N = 500 # number of initial conditions (i.e. number of training trajectories)
 
 nop = 2 #Number of pundulums
 
-
-### Generation of the training and test trajectories
+e3 = np.array([0,0,1]) # third axis of the intertial frame
 
 # initialization of the trajectories
 trajectories = np.zeros([N,2*s*nop,M])
@@ -42,11 +45,9 @@ for i in range(N):
     supp = np.random.rand(3)
     trajectories[i,3*(2*j+1):3*(2*j+2),0] = np.cross(q,supp)
 
-
 # Generation of the dataset with RK45 (default)
 for j in range(N):
   trajectories[j,:,:] = scipy.integrate.solve_ivp(dynamics,[0,T],trajectories[j,:,0],method='RK45',t_eval = time,rtol=1e-3,atol=1e-5).y
-
 
 # Visualization of trajectories
 
@@ -67,14 +68,14 @@ for num in range(nop):
   plt.show()
 
 
-# Building the neural network
+#############################################################################################
+####################### CONSTRUCTION OF DATASET AND NEURAL NETWORK ##########################
+#############################################################################################
 
-from Learning_Hamiltonians.nn_functions import *
+# definition of the dataset with pytorch
 
 X = trajectories[:,:,0] # trajectories in the phase space at time t=0 (intial comnditions)
 Y = trajectories[:,:,1:M+1] # trajectory solutions at M-1 evenly spaced times over the interval [dt, T] with dt = T/(M-1)
-
-# definition of the dataset with pytorch
 
 from torch.utils.data import Dataset, DataLoader
 class dataset(Dataset):
@@ -91,9 +92,10 @@ class dataset(Dataset):
 trainset = dataset(X,Y)
 
 
-
 batch_size = 80
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=0)
+
+# Neural network
 
 K = 100 # number of neurons of the hidden layers for the potential energy
 nlayers = 2 # number of layers of the NN
@@ -101,9 +103,6 @@ nlayers = 2 # number of layers of the NN
 id1=np.arange(0,s*nop,s)
 id2=np.arange(1,s*nop,s)
 id3=np.arange(2,s*nop,s)
-
-
-# Neural network
 
 class Hamiltonian(nn.Module): # the neural network module contains layers and encapsulates paramenters
     def __init__(self, ):
@@ -243,14 +242,16 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
 Ham = Hamiltonian()
 Ham.to(device)
 
+
+#############################################################################################
+############################# TRAINING OF THE NEURAL NETWORK ################################
+#############################################################################################
+
 import torch.optim as optim
 
 criterion = nn.MSELoss() # defining the Loss function as a mean squared error function
 optimizer = torch.optim.Adam(Ham.parameters(),lr=0.01) # Adam algorithm as optimizer
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
-
-
-# Training the neural network
 
 # Choice of the integrator
 integrator = CF4NN
@@ -291,7 +292,9 @@ for epoch in range(3):
 print('Finished Training')
 
 
-# Evaluating the approximation
+#############################################################################################
+########################### EVALUATION OF THE LEARNED HAMITLONIAN ###########################
+#############################################################################################
 
 Ham.eval(); # to pass in evaluation mode
 
@@ -365,7 +368,6 @@ for i in range(Ntest):
     predictedTraj[i,3*(2*j+1):3*(2*j+2),0] = np.cross(q,supp)
 
 realTraj[:,:,0] = predictedTraj[:,:,0]
-
 
 #Generate the dataset
 

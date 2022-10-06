@@ -14,12 +14,6 @@ This explains why multiple approaches have been proposed to approximate this ene
 and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks, 
 given sample data information of their solutions.  
 
-
-.. autofunction:: Learning_Hamiltonians.hat
-
-.. autofunction:: Learning_Hamiltonians.trajectories.hat
-
-
 Let us consider Hamiltonian functions of the form
 
 .. math::
@@ -104,6 +98,28 @@ implies :math:`W(q,p) = pq^T-qp^T`. Replacing these expressions in :eq:`chameq` 
         \dot{p} &= -(I-qq^T)\partial_qH(q,p) + \partial_pH(q,p)\times (p\times q).
         \end{cases}
     \end{align}
+
+This system is implemented in
+
+.. autofunction:: Learning_Hamiltonians.trajectories.dynamics
+
+to generate trainind data, and this function in turn makes use of
+
+.. autofunction:: Learning_Hamiltonians.trajectories.Hq
+.. autofunction:: Learning_Hamiltonians.trajectories.Hp
+.. autofunction:: Learning_Hamiltonians.trajectories.MatrR
+.. autofunction:: Learning_Hamiltonians.trajectories.hat
+.. autofunction:: Learning_Hamiltonians.trajectories.Massm
+
+The system :eq:`hameqpend` is also defined in 
+
+.. autofunction:: Learning_Hamiltonians.main.predicted
+
+with the Hamitlonian function replaced by the Nueral Network after the training procedure (i.e. the learned Hamiltonian) to evualte the approximation, and in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.predictedVF
+
+with the Hamitlonian function replaced by the Neural Network during the training procedure (to solve the training equations with classical Runge--Kutta schemes).
 
 We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action 
 
