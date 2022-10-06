@@ -1,8 +1,7 @@
 .. _learn:
 
-===================
- Learning procedure
-===================
+Learning procedure
+==================
 
 
 We work with numerically generated training trajectories that we denote by
@@ -51,7 +50,7 @@ Indeed, the weight sharing principle of RNNs is reproduced by the time steps in 
 based on the same approximation of the Hamiltonian, and hence on the same weights :math:`\Theta`. 
 
 Architecture of the network
-============================
+---------------------------
 
 In this example, the role of the neural network is to model the Hamiltonian, i.e. a scalar function defined on the phase 
 space :math:`\mathbb{R}^{2n}`. Thus, the starting and arrival spaces are fixed.

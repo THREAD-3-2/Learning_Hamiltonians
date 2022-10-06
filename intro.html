@@ -46,6 +46,44 @@ whose dynamics is fully determined by one scalar function, the Hamiltonian, whic
 This explains why multiple approaches have been proposed to approximate this energy function,
 and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks,
 given sample data information of their solutions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.hat">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.hat" title="Permalink to this definition">¶</a></dt>
+<dd><p>”
+Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q,
+such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3-component vector</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>hat(q)</strong> – 3x3 skew-symmetric matrix (element of the Lie algebra so(3))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.hat">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.hat" title="Permalink to this definition">¶</a></dt>
+<dd><p>”
+Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q,
+such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3-component vector</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>hat(q)</strong> – 3x3 skew-symmetric matrix (element of the Lie algebra so(3))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p>Let us consider Hamiltonian functions of the form</p>
 <div class="math notranslate nohighlight" id="equation-ham">
 <span class="eqno">(1)<a class="headerlink" href="#equation-ham" title="Permalink to this equation">¶</a></span>\[\begin{align}
