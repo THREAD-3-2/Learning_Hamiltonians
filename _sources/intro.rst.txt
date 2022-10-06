@@ -175,7 +175,7 @@ A similar reasoning can be extended to a chain of :math:`k` connected pendula, a
 both the equations and the expression :math:`F[H]` for all the :math:`k` copies of :math:`T^*S^2`. A more detailed explanation can be found 
 in `(Celledoni, Çokaj, Leone, Murari and Owren, 2021) <https://doi.org/10.1080/00207160.2021.1966772>`_. 
 
-The map :eq:`hameqpend` for the double pendulum has been implemented in the following function
+The map :eq:`mapfham` for the double pendulum has been implemented in the following function
 
 .. autofunction:: Learning_Hamiltonians.nn_functions.fManiAlgebraNN
 
