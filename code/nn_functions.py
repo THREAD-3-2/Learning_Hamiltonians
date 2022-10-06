@@ -7,9 +7,9 @@ import scipy.integrate
 
 __all__ = ['hatNN', 'fManiAlgebraNN', 'expso3NN', 'expse3NN', 'expse3NNn', 'actionSE3NN', 'actionse3NNn', 'LieEulerNN', 'CF4NN', 'predictedVF', 'ExpEuler', 'RK4']
 
-e3 = np.array([0,0,1]) # third axis of the intertial frame
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+e3 = np.array([0,0,1]) # third axis of the intertial frame
 
 def hatNN(q):
   """
@@ -42,15 +42,15 @@ def fManiAlgebraNN(H,z):
   Parameters
   ----------
   H: torch.Tensor
-     Hamiltonian function
+    Hamiltonian function
 
   z: torch.Tensor
-     training trajectory points, with size [batch size, nop*2s]
+    training trajectory points, with size [batch size, nop*2s]
 
   Returns
   -------
   ff : torch.Tensor
-       map f : M -> g (Lie algebra)
+    map f : M -> g (Lie algebra)
 
   """ 
   nop = z.size(dim=1)//6
@@ -83,13 +83,13 @@ def expso3NN(x):
 
   Parameters
   ----------
-  x: torch.Tensor (float32)
-     element of the lie algebra so(3), represented as a vector with 3 components.
+  x : torch.Tensor (float32)
+    element of the lie algebra so(3), represented as a vector with 3 components.
 
   Returns
   -------
   expA : torch.Tensor
-         element of the group SO(3), i.e. 3x3 rotation matrix
+    element of the group SO(3), i.e. 3x3 rotation matrix
 
   """ 
   a = torch.linalg.norm(x,axis=1).to(device)
@@ -129,16 +129,16 @@ def expse3NN(input):
   Parameters
   ----------
   x: torch.Tensor (float32)
-     element of the lie algebra se(3) represented as 6-component vector,
-     i.e. as a pair (u,v) with with the 3-component vector u corresponding 
-     to a skew symmetric matrix hat(u) and the 3-component vector v
-     corresponding to the translational part.
+    element of the lie algebra se(3) represented as 6-component vector,
+    i.e. as a pair (u,v) with with the 3-component vector u corresponding 
+    to a skew symmetric matrix hat(u) and the 3-component vector v
+    corresponding to the translational part.
 
   Returns
   -------
   expA : torch.Tensor
-         element of the group SE(3), represented as a 3x4 matrix [A, b], 
-         with A 3x3 rotation matrix and b 3-component translation vector.
+    element of the group SE(3), represented as a 3x4 matrix [A, b], 
+    with A 3x3 rotation matrix and b 3-component translation vector.
 
   """ 
   u = input[:,:3]
@@ -197,10 +197,10 @@ def actionSE3NN(g, z):
   Parameters
   ----------
   g: torch.Tensor
-     element of the group SE3 
+    element of the group SE3 
 
   z : torch.Tensor 
-      trajectory point in the phase space
+    trajectory point in the phase space
 
   Returns
   -------
@@ -224,10 +224,10 @@ def actionse3NNn(g, z):
   Parameters
   ----------
   g : torch.Tensor
-      elements of the group SE3 
+    elements of the group SE3 
 
   z : torch.Tensor
-      trajectory points in the phase space
+    trajectory points in the phase space
 
   Returns
   -------
@@ -250,19 +250,19 @@ def LieEulerNN(x0,f,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-       soltuion at time t0
+    soltuion at time t0
 
   f : function handle
-      map f from the manifold M to the Lie algebra of the group acting on M
+    map f from the manifold M to the Lie algebra of the group acting on M
 
   h : float
-      time step
+    time step
 
   cc : int
-       M-1
+    M-1
 
   H : neural network class
-      Hamiltonian function
+    Hamiltonian function
 
   Returns
   -------
@@ -288,19 +288,19 @@ def CF4NN(x0,f,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-       soltuion at time t0
+    soltuion at time t0
 
   f : function handle
-      map f from the manifold M to the Lie algebra of the group acting on M
+    map f from the manifold M to the Lie algebra of the group acting on M
 
   h : float
-      time step
+    time step
 
   cc : int
-       M-1
+    M-1
 
   H : neural network class
-      Hamiltonian function
+    Hamiltonian function
 
   Returns
   -------
@@ -337,15 +337,15 @@ def predictedVF(x,HH):
   Parameters
   ----------
   x : torch.Tensor
-      soltuion at time t0
+    soltuion at time t0
 
   HH : function handle
-       Hamiltonian
+    Hamiltonian
 
   Returns
   -------
   vec : torch.Tensor
-        vector field (Hamlton equations)
+    vector field (Hamlton equations)
 
   """
   z = x.clone().requires_grad_().to(device)
@@ -385,19 +385,19 @@ def ExpEuler(x0,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-       soltuion at time t0
+    soltuion at time t0
 
   f : function handle
-      map f from the manifold M to the Lie algebra of the group acting on M
+    map f from the manifold M to the Lie algebra of the group acting on M
 
   h : float
-      time step
+    time step
 
   cc : int
-       M-1
+    M-1
 
   H : neural network class
-      Hamiltonian function
+    Hamiltonian function
 
   Returns
   -------
@@ -421,19 +421,19 @@ def RK4(x0,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-       soltuion at time t0
+    soltuion at time t0
 
   f : function handle
-      map f from the manifold M to the Lie algebra of the group acting on M
+    map f from the manifold M to the Lie algebra of the group acting on M
 
   h : float
-      time step
+    time step
 
   cc : int
-       M-1
+    M-1
 
   H : neural network class
-      Hamiltonian function
+    Hamiltonian function
 
   Returns
   -------

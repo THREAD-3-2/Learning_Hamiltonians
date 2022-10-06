@@ -5,6 +5,10 @@ from autograd import grad
 import autograd.numpy as np
 import scipy.integrate
 
+from trajectories import *
+
+__all__ = ['Hamiltonian', 'predicted']
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
@@ -23,8 +27,6 @@ nop = 2 #Number of pundulums
 
 
 ### Generation of the training and test trajectories
-
-from trajectories import *
 
 # initialization of the trajectories
 trajectories = np.zeros([N,2*s*nop,M])
