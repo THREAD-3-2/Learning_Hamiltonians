@@ -12,20 +12,19 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 e3 = np.array([0,0,1]) # third axis of the intertial frame
 
 def Massm(nop,m):
-  """
-  Mass matrix collecting the terms mij in the matrix defining the kinetic energy
+  """ Mass matrix collecting the terms mij in the matrix defining the kinetic energy
 
   Parameters
   ----------
   nop : int
-      number of pendulums
+    number of pendulums
   m : float
-  masses of the pendulums (supposed to be all the same in this case)
+    masses of the pendulums (supposed to be all the same in this case)
 
   Returns
   -------
-  M: numpy.ndarray
-     Mass matrix
+  M : numpy.ndarray
+    Mass matrix
 
   """
   M=np.zeros((nop,nop))
@@ -41,19 +40,19 @@ def Massm(nop,m):
 
 
 def hat(q):
-  """"
+  """" 
   Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q, 
   such that hat(a)b=axb for all 3-component vectors a and b, with "x" the cross product
 
   Parameters
   ----------
   q : numpy.ndarray
-      3-component vector
+    3-component vector
 
   Returns
   -------
   hat(q): numpy.ndarray
-          3x3 skew-symmetric matrix (element of the Lie algebra so(3))
+    3x3 skew-symmetric matrix (element of the Lie algebra so(3))
 
   """
   return np.array([[0.,-q[2],q[1]],[q[2],0.,-q[0]],[-q[1],q[0],0.]])
@@ -67,12 +66,12 @@ def MatrR(q):
   Parameters
   ----------
   q : numpy.ndarray
-      3N-component vector of coordinates, with N the number of pendulums
+    3N-component vector of coordinates, with N the number of pendulums
     
   Returns
   -------
   R : numpy.ndarray
-      3Nx3N matrix defining the kinetic energy, with N the number of pendulums
+    3Nx3N matrix defining the kinetic energy, with N the number of pendulums
   """
   m = 1.
   L = 1.
@@ -102,13 +101,12 @@ def Hp(z):
   Parameters
   ----------
   z : numpy.ndarray
-      6N-component vector of generalized coordinates and momenta, 
-      with N the number of pendulums
+    6N-component vector of generalized coordinates and momenta, with N the number of pendulums
     
   Returns
   -------
   Hp : numpy.ndarray
-       3N-component vector, with N the number of pendulums
+    3N-component vector, with N the number of pendulums
 
   """
   nop = int(len(z)/6)
@@ -129,13 +127,12 @@ def Hq(z):
   Parameters
   ----------
   z : numpy.ndarray
-      6N-component vector of configuration variables and conjugate momenta, 
-      with N the number of pendulums
+    6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums
     
   Returns
   -------
   Hp : numpy.ndarray
-       3N-component vector, with N the number of pendulums
+    3N-component vector, with N the number of pendulums
 
   """
   e3 = np.array([0,0,1]) # third axis of the intertial frame
@@ -164,16 +161,15 @@ def dynamics(t,z):
   Parameters
   ----------
   t : float
-      1-D independent variable (time)
+    1-D independent variable (time)
       
   z : numpy.ndarray
-      6N-component vector of configuration variables and conjugate momenta, 
-      with N the number of pendulums
+    6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums
 
   Returns
   -------
   vec : numpy.ndarray
-        3N-component vector, with N the number of pendulums
+    3N-component vector, with N the number of pendulums
 
   """  
   nop = int(len(z)/6)
