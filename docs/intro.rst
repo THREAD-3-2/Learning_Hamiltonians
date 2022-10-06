@@ -16,11 +16,9 @@ and we focus here on the task of learning the Hamiltonians of contrained mechani
 given sample data information of their solutions.  
 
 
-.. autoclass:: Learning_Hamiltonians.trajectories.hat
+.. autofunction:: Learning_Hamiltonians.hat
 
-.. autoclass:: Learning_Hamiltonians.hat
-
-.. autoclass:: hat
+.. autofunction:: Learning_Hamiltonians.trajectories.hat
 
 
 Let us consider Hamiltonian functions of the form
