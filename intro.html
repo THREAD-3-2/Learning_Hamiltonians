@@ -46,44 +46,6 @@ whose dynamics is fully determined by one scalar function, the Hamiltonian, whic
 This explains why multiple approaches have been proposed to approximate this energy function,
 and we focus here on the task of learning the Hamiltonians of contrained mechanical systems with neural networks,
 given sample data information of their solutions.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.hat">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.hat" title="Permalink to this definition">¶</a></dt>
-<dd><p>”
-Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q,
-such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3-component vector</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>hat(q)</strong> – 3x3 skew-symmetric matrix (element of the Lie algebra so(3))</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.hat">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.hat" title="Permalink to this definition">¶</a></dt>
-<dd><p>”
-Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q,
-such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3-component vector</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>hat(q)</strong> – 3x3 skew-symmetric matrix (element of the Lie algebra so(3))</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
 <p>Let us consider Hamiltonian functions of the form</p>
 <div class="math notranslate nohighlight" id="equation-ham">
 <span class="eqno">(1)<a class="headerlink" href="#equation-ham" title="Permalink to this equation">¶</a></span>\[\begin{align}
@@ -143,6 +105,162 @@ implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>
     \dot{p} &amp;= -(I-qq^T)\partial_qH(q,p) + \partial_pH(q,p)\times (p\times q).
     \end{cases}
 \end{align}\end{split}\]</div>
+<p>This system is implemented in</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.dynamics">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.dynamics" title="Permalink to this definition">¶</a></dt>
+<dd><p>System of ODEs defining the dynamics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em>) – 1-D independent variable (time)</p></li>
+<li><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vec</strong> – 3N-component vector, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>to generate training data, and this function in turn makes use of</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hq">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradient of the Hamiltonian with respect to the configuration variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hp">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradient of the Hamiltonian with respect to the conjugate momenta</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of generalized coordinates and momenta, with N the number of pendulums</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.MatrR">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">MatrR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.MatrR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix defining the quadratic kinetic energy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3N-component vector of coordinates, with N the number of pendulums</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>R</strong> – 3Nx3N matrix defining the kinetic energy, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.hat">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.hat" title="Permalink to this definition">¶</a></dt>
+<dd><p>”
+Isomorphism bewteen R3 and so(3). It returns the skew symmetric matrix hat(q) associated to the vector q,
+such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cross product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>numpy.ndarray</em>) – 3-component vector</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>hat(q)</strong> – 3x3 skew-symmetric matrix (element of the Lie algebra so(3))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Massm">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Massm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Massm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mass matrix collecting the terms mij in the matrix defining the kinetic energy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nop</strong> (<em>int</em>) – number of pendulums</p></li>
+<li><p><strong>m</strong> (<em>float</em>) – masses of the pendulums (supposed to be all the same in this case)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>M</strong> – Mass matrix</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The system <a class="reference internal" href="#equation-hameqpend">(6)</a> is also defined in</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.main.predicted">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.main.</span></span><span class="sig-name descname"><span class="pre">predicted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.predicted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vector field predicted by using the evaluated Hamiltonian, t be used in scipy.integrate.solve_ivp
+to get trajectory segments with the evaluated Hamitlonian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>time</em>) – standard input to use the predicted function in scipi.integrate.solve_ivp</p></li>
+<li><p><strong>HH</strong> (<em>torch.Tensor</em>) – trajectory point</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vec</strong> – vector field (Hamlton equations)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>with the Hamitlonian function replaced by the Nueral Network after the training procedure (i.e. the learned Hamiltonian) to evualte the approximation, and in</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.predictedVF">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">predictedVF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.predictedVF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vector field predicted by using the output of the neural network as the Hamiltonian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>HH</strong> (<em>function handle</em>) – Hamiltonian</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vec</strong> – vector field (Hamlton equations)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>with the Hamitlonian function replaced by the Neural Network during the training procedure (to solve the training equations with classical Runge–Kutta schemes).</p>
 <p>We remarks briefly that <span class="math notranslate nohighlight">\(T^*S^2\)</span> is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action</p>
 <div class="math notranslate nohighlight" id="equation-act">
 <span class="eqno">(7)<a class="headerlink" href="#equation-act" title="Permalink to this equation">¶</a></span>\[\begin{align}
