@@ -103,19 +103,31 @@ This system is implemented in
 
 .. autofunction:: Learning_Hamiltonians.trajectories.dynamics
 
+|
+
 to generate training data, and this function in turn makes use of
 
 .. autofunction:: Learning_Hamiltonians.trajectories.Hq
 
+|
+
 .. autofunction:: Learning_Hamiltonians.trajectories.Hp
+
+|
 
 .. autofunction:: Learning_Hamiltonians.trajectories.MatrR
 
+|
+
 .. autofunction:: Learning_Hamiltonians.trajectories.hat
+
+|
 
 .. autofunction:: Learning_Hamiltonians.trajectories.Massm
 
-The system :eq:`hameqpend` is also defined in 
+|
+
+The system :eq:`hameqpend` is also implemented in 
 
 .. autofunction:: Learning_Hamiltonians.main.predicted
 
@@ -124,6 +136,8 @@ with the Hamitlonian function replaced by the Nueral Network after the training 
 .. autofunction:: Learning_Hamiltonians.nn_functions.predictedVF
 
 with the Hamitlonian function replaced by the Neural Network during the training procedure (to solve the training equations with classical Runge--Kutta schemes).
+
+
 
 We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action 
 
@@ -159,4 +173,9 @@ and
 
 A similar reasoning can be extended to a chain of :math:`k` connected pendula, and hence to a system on :math:`(T^*S^2)^k`. The main idea is to replicate 
 both the equations and the expression :math:`F[H]` for all the :math:`k` copies of :math:`T^*S^2`. A more detailed explanation can be found 
-in `(Celledoni, Çokaj, Leone, Murari and Owren, 2021) <https://doi.org/10.1080/00207160.2021.1966772>`_.
+in `(Celledoni, Çokaj, Leone, Murari and Owren, 2021) <https://doi.org/10.1080/00207160.2021.1966772>`_. 
+
+The map :eq:`hameqpend` for the double pendulum has been implemented in the following function
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.fManiAlgebraNN
+
