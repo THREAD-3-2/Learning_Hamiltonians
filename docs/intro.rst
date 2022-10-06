@@ -1,12 +1,11 @@
 .. _intro:
 
-=========
- Example
-=========
+Example
+=======
 
 
 Problem description
-===================
+-------------------
 
 There is an increasing interest in modelling and computation of physical systems with neural networks, 
 given the the outstanding results they achieved in learning patterns from data. We consider Hamiltonian mechanical systems, 
@@ -75,7 +74,7 @@ where
 
 
 Systems defined on products of spheres
-=======================================
+--------------------------------------
 
 Let the phase space of the system be :math:`\mathcal{M}=(T^*S^2)^k`, where :math:`S^2` is the unit sphere in :math:`\mathbb{R}^3`, :math:`k\in \mathbb{N}^+`. 
 We coordinatize :math:`\mathcal{M}` with :math:`(q,p)=(q_1,\dots,q_k,p_1,\dots,p_k)\in \mathbb{R}^{6k}`. In this case, when :math:`p\in \mathbb{R}^{3k}` is 

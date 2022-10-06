@@ -1,5 +1,5 @@
 ========================================
- Documentation of `Learning_Hamiltonians`
+Documentation of `Learning_Hamiltonians`
 ========================================
 
 `Learning Hamiltonians <https://github.com/THREAD-3-2/Learning_Hamiltonians>`_ is a Python code for 
@@ -12,7 +12,7 @@ The code can be run from the `main file <https://github.com/THREAD-3-2/Learning_
 
 
 Contents
-========
+--------
 
 .. toctree::
    installation
@@ -22,7 +22,7 @@ Contents
 
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`search`

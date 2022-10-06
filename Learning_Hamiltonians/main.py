@@ -5,7 +5,7 @@ from autograd import grad
 import autograd.numpy as np
 import scipy.integrate
 
-from trajectories import *
+from Learning_Hamiltonians.trajectories import *
 
 __all__ = ['Hamiltonian', 'predicted']
 
@@ -69,7 +69,7 @@ for num in range(nop):
 
 # Building the neural network
 
-from nn_functions import *
+from Learning_Hamiltonians.nn_functions import *
 
 X = trajectories[:,:,0] # trajectories in the phase space at time t=0 (intial comnditions)
 Y = trajectories[:,:,1:M+1] # trajectory solutions at M-1 evenly spaced times over the interval [dt, T] with dt = T/(M-1)
