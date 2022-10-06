@@ -5,11 +5,11 @@
 
 ## documentation generator
 sphinx
-### document MATLAB code (optionally)
-sphinxcontrib-matlabdomain
+# ### document MATLAB code (optionally)
+# sphinxcontrib-matlabdomain
 
-## automated tests (optionally)
-pytest
-### run mypy type checker as part of the test suite
-### (makes sense if you use Python type annotations)
-pytest-mypy
+# ## automated tests (optionally)
+# pytest
+# ### run mypy type checker as part of the test suite
+# ### (makes sense if you use Python type annotations)
+# pytest-mypy
