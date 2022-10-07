@@ -108,11 +108,13 @@ id3=np.arange(2,s*nop,s)
 
 class Hamiltonian(nn.Module): # the neural network module contains layers and encapsulates paramenters
   """
-  Hamiltonian class to define the neural network by subclassing nn.Module
+  Class to define the neural network (parameterized Hamiltonian), which inherits from nn.Module
   """
+
   def __init__(self, ):
     """
-    In the init method we define the parameters
+    Method where the parameters are defined
+    |
     """
     super(Hamiltonian, self).__init__()
       
@@ -151,7 +153,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]
-
+      |
       """
       nop = int(X.size(dim=1)/6)
       q = X[:,:3]
@@ -188,7 +190,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Kinetic energy, with shape [batch size, 1]
-            
+      |      
       """ 
       nop = int(X.size(dim=1)/6)
       id = torch.eye(nop,nop)
@@ -216,7 +218,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Potential energy, with shape [batch size, 1]
-            
+      |      
       """ 
       nop = int(X.size(dim=1)/6)
       q = X[:,:3]
@@ -241,7 +243,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       o : torch.Tensor
           Value of the Hamiltonian, with shape [batch size, 1]
-
+      |
       """ 
       o = self.Potential(X) + self.Kinetic(X)
       return o
@@ -323,7 +325,7 @@ def predicted(t,z):
   -------
   vec : torch.Tensor
         vector field (Hamlton equations)
-
+  |
   """
   z = torch.from_numpy(z.astype(np.float32)).requires_grad_()
   z = z.to(device)
