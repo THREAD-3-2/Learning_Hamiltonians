@@ -99,13 +99,13 @@ implies :math:`W(q,p) = pq^T-qp^T`. Replacing these expressions in :eq:`chameq` 
         \end{cases}
     \end{align}
 
-This system is implemented in
+This system is implemented in the following function to generate the training data.
 
 .. autofunction:: Learning_Hamiltonians.trajectories.dynamics
 
 |
 
-to generate training data, and this function in turn makes use of
+This function in turn makes use of
 
 .. autofunction:: Learning_Hamiltonians.trajectories.Hq
 
@@ -131,13 +131,11 @@ The system :eq:`hameqpend` is also implemented in
 
 .. autofunction:: Learning_Hamiltonians.main.predicted
 
-with the Hamitlonian function replaced by the Nueral Network after the training procedure (i.e. the learned Hamiltonian) to evualte the approximation, and in
+with the Hamitlonian function replaced by the Neural Network after the training procedure (i.e. the learned Hamiltonian) to evualte the approximation, and in
 
 .. autofunction:: Learning_Hamiltonians.nn_functions.predictedVF
 
 with the Hamitlonian function replaced by the Neural Network during the training procedure (to solve the training equations with classical Runge--Kutta schemes).
-
-
 
 We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is acted upon transitively by the Lie group SE(3) through the group action 
 
@@ -148,10 +146,42 @@ We remarks briefly that :math:`T^*S^2` is a homogeneous manifold, since it is ac
         \Psi : SE(3)\times T^*S^2\rightarrow T^*S^2,\;\;((R,r),(q,p^T))\mapsto (Rq,(Rp+r\times Rq)^T),
     \end{align}
 
-where the transpose comes from the usual interpretation of covectors as row vectors. As a consequence, we can use also Lie group integrators to solve numerically 
-the system :eq:`hameqpend`. In the `code <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/code/learn_hamiltonian.ipynb>`_, both Lie group 
+where the transpose comes from the usual interpretation of covectors as row vectors. This is implemented in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.actionSE3NN
+
+The hat map is implemented in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.hatNN
+
+As a consequence of :eq:`act`, we can use also Lie group integrators to solve numerically 
+the system :eq:`hameqpend`. In the `code <https://github.com/THREAD-3-2/Learning_Hamiltonians/blob/main/Learning_Hamiltonians/main.py>`_, both Lie group 
 integrators (Lie-Euler and commutator-free of order 4) and classical Runge-Kutta schemes (Euler and Runge-Kutta of order four)
-are implemented for the time integration of :eq:`hameqpend` during the training procedure. We represent a generic element of the special Euclidean group :math:`G=SE(3)` as 
+are implemented for the time integration of :eq:`hameqpend` during the training procedure. 
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.LieEulerNN
+
+|
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.CF4NN
+
+|
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.ExpEuler
+
+|
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.RK4
+
+Lie group inetgrators make use of the expoenntial map on :math:`SO(3)` and :math:`SE(3)`, implemented in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.expso3NN
+
+|
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.exps33NN
+
+We represent a generic element of the special Euclidean group :math:`G=SE(3)` as 
 an ordered pair :math:`(R,r)`, where :math:`R\in SO(3)` is a rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector 
 field :math:`X(q,p)` can be expressed as :math:`\psi_*(F[H](q,p))(q,p)` with
 
@@ -179,3 +209,10 @@ The map :eq:`mapfham` for the double pendulum has been implemented in the follow
 
 .. autofunction:: Learning_Hamiltonians.nn_functions.fManiAlgebraNN
 
+and the extension of :eq:`act` to :math:`(T^*S^2)^k` in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.expse3NNn
+
+Finally, the extension of exponential map on :math:`SE(3)` to :math:`(T^*S^2)^k` is implemented in
+
+.. autofunction:: Learning_Hamiltonians.nn_functions.actionse3NNn

@@ -51,21 +51,23 @@ for j in range(N):
 
 # Visualization of trajectories
 
-u = np.linspace(0, 2 * np.pi, 100)
-v = np.linspace(0, np.pi, 100)
+##### uncomment to visdualize training trajectories #####
 
-a = 1 * np.outer(np.cos(u), np.sin(v))
-b = 1 * np.outer(np.sin(u), np.sin(v))
-c = 1 * np.outer(np.ones(np.size(u)), np.cos(v))
+# u = np.linspace(0, 2 * np.pi, 100)
+# v = np.linspace(0, np.pi, 100)
 
-for num in range(nop):
-  fig = plt.figure(figsize=(12,12), dpi=80)
-  ax = plt.axes(projection='3d')
-  ax.plot_surface(a, b, c,  rstride=4, cstride=4, color='g', linewidth=0, alpha=0.09)
-  for i in range(N):
-    ax.plot3D(trajectories[i,6*num,:],trajectories[i,6*num+1,:],trajectories[i,6*num+2,:],'k-')
-  plt.title(f"Trajectory segments pendulum {num+1}",fontsize=20)
-  plt.show()
+# a = 1 * np.outer(np.cos(u), np.sin(v))
+# b = 1 * np.outer(np.sin(u), np.sin(v))
+# c = 1 * np.outer(np.ones(np.size(u)), np.cos(v))
+
+# for num in range(nop):
+#   fig = plt.figure(figsize=(12,12), dpi=80)
+#   ax = plt.axes(projection='3d')
+#   ax.plot_surface(a, b, c,  rstride=4, cstride=4, color='g', linewidth=0, alpha=0.09)
+#   for i in range(N):
+#     ax.plot3D(trajectories[i,6*num,:],trajectories[i,6*num+1,:],trajectories[i,6*num+2,:],'k-')
+#   plt.title(f"Trajectory segments pendulum {num+1}",fontsize=20)
+#   plt.show()
 
 
 #############################################################################################
@@ -427,7 +429,7 @@ for num in range(nop):
   # ax.set_box_aspect([1,1,1]) 
   # ax.set_proj_type('ortho') 
   set_axes_equal(ax)
-  plt.savefig(f"pend{num+1}.png")
+  # plt.savefig(f"pend{num+1}.png")
   plt.tight_layout()
   plt.show()
 
