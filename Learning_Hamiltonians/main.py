@@ -114,8 +114,8 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
   def __init__(self, ):
     """
     Method where the parameters are defined
-    |
     """
+
     super(Hamiltonian, self).__init__()
       
     self.IV = nn.Linear(s*nop,K) # linear layer (s*nop-dimnesional input, K-dimensional output)
@@ -153,8 +153,8 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]
-      |
       """
+
       nop = int(X.size(dim=1)/6)
       q = X[:,:3]
       for j in range(1,nop):
@@ -190,8 +190,9 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Kinetic energy, with shape [batch size, 1]
-      |      
+
       """ 
+
       nop = int(X.size(dim=1)/6)
       id = torch.eye(nop,nop)
       ref = torch.ones(3,3)
@@ -218,8 +219,9 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       row : torch.Tensor
             Potential energy, with shape [batch size, 1]
-      |      
+
       """ 
+
       nop = int(X.size(dim=1)/6)
       q = X[:,:3]
       for j in range(1,nop):
@@ -243,8 +245,9 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       -------
       o : torch.Tensor
           Value of the Hamiltonian, with shape [batch size, 1]
-      |
+          
       """ 
+      
       o = self.Potential(X) + self.Kinetic(X)
       return o
 

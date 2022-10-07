@@ -250,7 +250,7 @@ def LieEulerNN(x0,f,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-    soltuion at time t0
+    solution at time t0
 
   f : function handle
     map f from the manifold M to the Lie algebra of the group acting on M
@@ -288,7 +288,7 @@ def CF4NN(x0,f,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-    soltuion at time t0
+    solution at time t0
 
   f : function handle
     map f from the manifold M to the Lie algebra of the group acting on M
@@ -337,7 +337,7 @@ def predictedVF(x,HH):
   Parameters
   ----------
   x : torch.Tensor
-    soltuion at time t0
+    solution at time t0
 
   HH : function handle
     Hamiltonian
@@ -385,7 +385,7 @@ def ExpEuler(x0,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-    soltuion at time t0
+    solution at time t0
 
   f : function handle
     map f from the manifold M to the Lie algebra of the group acting on M
@@ -421,7 +421,7 @@ def RK4(x0,h,cc,H):
   Parameters
   ----------
   x0 : torch.Tensor
-    soltuion at time t0
+    solution at time t0
 
   f : function handle
     map f from the manifold M to the Lie algebra of the group acting on M

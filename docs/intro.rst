@@ -103,11 +103,7 @@ This system is implemented in the following function to generate the training da
 
 .. autofunction:: Learning_Hamiltonians.trajectories.dynamics
 
-|
-
 This function in turn makes use of
-
-|
 
 .. autofunction:: Learning_Hamiltonians.trajectories.MatrR
 
@@ -118,8 +114,6 @@ This function in turn makes use of
 |
 
 .. autofunction:: Learning_Hamiltonians.trajectories.Massm
-
-|
 
 to define the Kinetic energy as in :eq:`ham` - :eq:`mmatrp`, and of
 
@@ -178,7 +172,7 @@ are implemented for the time integration of :eq:`hameqpend` during the training 
 
 .. autofunction:: Learning_Hamiltonians.nn_functions.RK4
 
-Lie group inetgrators make use of the expoenntial map on :math:`SO(3)` and :math:`SE(3)`, implemented in
+Lie group integrators make use of the exponential maps on :math:`SO(3)` and :math:`SE(3)`, implemented respectively in
 
 .. autofunction:: Learning_Hamiltonians.nn_functions.expso3NN
 
