@@ -117,4 +117,7 @@ for example with :math:`\sigma(x) = \tanh(x)`. Therefore, we have that
 The neural network for the parameterized Hamiltonian :eq:'tpar' is defined in the PyTorch class
 
 .. autoclass:: Learning_Hamiltonians.main.Hamiltonian
+    :members: __init__, MassMat, Kinetic, Potential, forward
+
+
 

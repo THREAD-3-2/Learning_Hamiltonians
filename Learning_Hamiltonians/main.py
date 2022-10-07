@@ -107,138 +107,144 @@ id2=np.arange(1,s*nop,s)
 id3=np.arange(2,s*nop,s)
 
 class Hamiltonian(nn.Module): # the neural network module contains layers and encapsulates paramenters
-    def __init__(self, ):
-        super(Hamiltonian, self).__init__()
-        
-        self.IV = nn.Linear(s*nop,K) # linear layer (s*nop-dimnesional input, K-dimensional output)
-        self.nl = nn.Tanh() # nonlinear activation function
-        self.OV = nn.Linear(K,1,bias=False) # linear output layer (K-dimnesional input, 1-dimensional output)
+  """
+  Hamiltonian class to define the neural network by subclassing nn.Module
+  """
+  def __init__(self, ):
+    """
+    In the init method we define the parameters
+    """
+    super(Hamiltonian, self).__init__()
+      
+    self.IV = nn.Linear(s*nop,K) # linear layer (s*nop-dimnesional input, K-dimensional output)
+    self.nl = nn.Tanh() # nonlinear activation function
+    self.OV = nn.Linear(K,1,bias=False) # linear output layer (K-dimnesional input, 1-dimensional output)
 
-        ll = []
-        ll.append(self.IV)
-        ll.append(self.nl)
-        for i in range(nlayers):
-          ll.append(nn.Linear(K,K))
-          ll.append(self.nl)
-        ll.append(self.OV)
+    ll = []
+    ll.append(self.IV)
+    ll.append(self.nl)
+    for i in range(nlayers):
+      ll.append(nn.Linear(K,K))
+      ll.append(self.nl)
+    ll.append(self.OV)
 
-        # the sequential module connects the modules in ll in a cascading way, 
-        # chaining outputs to inputs sequentially for each subsequent module 
-        # and returning the output of the ladt module
-        self.seq = nn.Sequential(*ll)
+    # the sequential module connects the modules in ll in a cascading way, 
+    # chaining outputs to inputs sequentially for each subsequent module 
+    # and returning the output of the ladt module
+    self.seq = nn.Sequential(*ll)
 
-        # parameters in the neural network used to define the mass matrix in the kinetic energy
-        self.Gamma = torch.nn.Parameter(data=torch.rand(nop,nop))
-        self.B = torch.nn.Parameter(data=torch.rand(nop))
-        self.func = nn.ReLU()
+    # parameters in the neural network used to define the mass matrix in the kinetic energy
+    self.Gamma = torch.nn.Parameter(data=torch.rand(nop,nop))
+    self.B = torch.nn.Parameter(data=torch.rand(nop))
+    self.func = nn.ReLU()
 
-    # Definition of the mass matrix
-    def MassMat(self,X):
-        """
-        Mass matrix defining the kinetic energy quadratic function
+  # Definition of the mass matrix
+  def MassMat(self,X):
+      """
+      Mass matrix defining the kinetic energy quadratic function
 
-        Parameters
-        ----------
-        X: torch.Tensor
-           training trajectory points in input, with shape [batch size, nop*2s]
-        Returns
-        -------
-        row : torch.Tensor
-              Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]
+      Parameters
+      ----------
+      X: torch.Tensor
+          training trajectory points in input, with shape [batch size, nop*2s]
+      Returns
+      -------
+      row : torch.Tensor
+            Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]
 
-        """
-        nop = int(X.size(dim=1)/6)
-        q = X[:,:3]
-        for j in range(1,nop):
-          q = torch.cat([q, X[:,3*2*j:3*(2*j+1)]], axis=1)
-        M = torch.transpose(self.Gamma,0,1)@self.Gamma + torch.diag(self.B)**2
-        I = torch.eye(3).unsqueeze(0).repeat(len(q),1,1).to(device)
-        R = M[0,0] * I
-        for j in range(1,nop):
-          R = torch.cat((R,M[0,j]*(I-torch.einsum('ij,ik->ijk',q[:,:3],q[:,:3]))),axis=2)
-        for i in range(1,nop):
-          for j in range(nop):
-            if j == i:
-              R = torch.cat((R,M[i,i]*I),axis=2)
-            else:
-              R = torch.cat((R,M[i,j]*(I-torch.einsum('ij,ik->ijk',q[:,3*i:3*i+3],q[:,3*i:3*i+3]))),axis=2)
-        n = nop * s
-        row=R[:,0:3,0:n]
-        for i in range(1,nop):
-          row = torch.cat((row,R[:,0:3,n*i:n*(i+1)]),axis=1)
-        return row
+      """
+      nop = int(X.size(dim=1)/6)
+      q = X[:,:3]
+      for j in range(1,nop):
+        q = torch.cat([q, X[:,3*2*j:3*(2*j+1)]], axis=1)
+      M = torch.transpose(self.Gamma,0,1)@self.Gamma + torch.diag(self.B)**2
+      I = torch.eye(3).unsqueeze(0).repeat(len(q),1,1).to(device)
+      R = M[0,0] * I
+      for j in range(1,nop):
+        R = torch.cat((R,M[0,j]*(I-torch.einsum('ij,ik->ijk',q[:,:3],q[:,:3]))),axis=2)
+      for i in range(1,nop):
+        for j in range(nop):
+          if j == i:
+            R = torch.cat((R,M[i,i]*I),axis=2)
+          else:
+            R = torch.cat((R,M[i,j]*(I-torch.einsum('ij,ik->ijk',q[:,3*i:3*i+3],q[:,3*i:3*i+3]))),axis=2)
+      n = nop * s
+      row=R[:,0:3,0:n]
+      for i in range(1,nop):
+        row = torch.cat((row,R[:,0:3,n*i:n*(i+1)]),axis=1)
+      return row
 
-    # Modelling of the Kinetic energy as a bilinear form  
-    def Kinetic(self, X):
-        """
-        Kinetic energy in the Hamiltonian function
+  # Modelling of the Kinetic energy as a bilinear form  
+  def Kinetic(self, X):
+      """
+      Kinetic energy in the Hamiltonian function
 
-        Parameters
-        ----------
-        X: torch.Tensor
-           training trajectory points in input, with shape [batch size, nop*2s]
+      Parameters
+      ----------
+      X: torch.Tensor
+          training trajectory points in input, with shape [batch size, nop*2s]
 
-        Returns
-        -------
-        row : torch.Tensor
-              Kinetic energy, with shape [batch size, 1]
-              
-        """ 
-        nop = int(X.size(dim=1)/6)
-        id = torch.eye(nop,nop)
-        ref = torch.ones(3,3)
-        R = torch.kron(id, ref).to(device)
-        U = torch.ones(3*nop,3*nop).to(device)
-        p = X[:,3:6]
-        for j in range(1,nop):
-          p = torch.cat([p, X[:,3*(2*j+1):3*(2*j+2)]], axis=1)
-        MM = self.MassMat(X) 
-        k = (0.5 * torch.einsum('ij,ij->i',p,torch.linalg.solve(MM,p))).unsqueeze(1) # q dependent component
-        return k
-    
-    # Modelling of the potential energy as a feed-forward neural network
-    def Potential(self, X):
-        """
-        Potential energy in the Hamiltonian function
+      Returns
+      -------
+      row : torch.Tensor
+            Kinetic energy, with shape [batch size, 1]
+            
+      """ 
+      nop = int(X.size(dim=1)/6)
+      id = torch.eye(nop,nop)
+      ref = torch.ones(3,3)
+      R = torch.kron(id, ref).to(device)
+      U = torch.ones(3*nop,3*nop).to(device)
+      p = X[:,3:6]
+      for j in range(1,nop):
+        p = torch.cat([p, X[:,3*(2*j+1):3*(2*j+2)]], axis=1)
+      MM = self.MassMat(X) 
+      k = (0.5 * torch.einsum('ij,ij->i',p,torch.linalg.solve(MM,p))).unsqueeze(1) # q dependent component
+      return k
+  
+  # Modelling of the potential energy as a feed-forward neural network
+  def Potential(self, X):
+      """
+      Potential energy in the Hamiltonian function
 
-        Parameters
-        ----------
-        X: torch.Tensor
-           training trajectory points in input, with shape [batch size, nop*2s] 
+      Parameters
+      ----------
+      X: torch.Tensor
+          training trajectory points in input, with shape [batch size, nop*2s] 
 
-        Returns
-        -------
-        row : torch.Tensor
-              Potential energy, with shape [batch size, 1]
-              
-        """ 
-        nop = int(X.size(dim=1)/6)
-        q = X[:,:3]
-        for j in range(1,nop):
-          q = torch.cat([q, X[:,3*2*j:3*(2*j+1)]], axis=1)
+      Returns
+      -------
+      row : torch.Tensor
+            Potential energy, with shape [batch size, 1]
+            
+      """ 
+      nop = int(X.size(dim=1)/6)
+      q = X[:,:3]
+      for j in range(1,nop):
+        q = torch.cat([q, X[:,3*2*j:3*(2*j+1)]], axis=1)
 
-        v = self.seq(q)
-        return v
+      v = self.seq(q)
+      return v
 
-    # Sum of the contributions to get the approximated Hamiltonian energy
-    def forward(self, X):
-        """
-        Forward function that receives a tensor containing the input (trajectory points in the phase space) 
-        and returns a tensor containing a scalar output (Hamiltonian)).
+  # Sum of the contributions to get the approximated Hamiltonian energy
+  def forward(self, X):
+      """
+      Forward function that receives a tensor containing the input (trajectory points in the phase space) 
+      and returns a tensor containing a scalar output (Hamiltonian)).
 
-        Parameters
-        ----------
-        X: torch.Tensor
-           training trajectory points in input, with shape [batch size, nop*2s]
+      Parameters
+      ----------
+      X: torch.Tensor
+          training trajectory points in input, with shape [batch size, nop*2s]
 
-        Returns
-        -------
-        o : torch.Tensor
-            Value of the Hamiltonian, with shape [batch size, 1]
+      Returns
+      -------
+      o : torch.Tensor
+          Value of the Hamiltonian, with shape [batch size, 1]
 
-        """ 
-        o = self.Potential(X) + self.Kinetic(X)
-        return o
+      """ 
+      o = self.Potential(X) + self.Kinetic(X)
+      return o
 
 
 Ham = Hamiltonian()
