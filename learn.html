@@ -113,15 +113,16 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <span class="eqno">(8)<a class="headerlink" href="#equation-tpar" title="Permalink to this equation">¶</a></span>\[\begin{align}
     \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
 \end{align}\]</div>
-<p>The neural network for the parameterized Hamiltonian :eq:’tpar’ is defined in the PyTorch class</p>
+<p>The neural network for the parameterized Hamiltonian :eq:’tpar’ is defined in the following PyTorch class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.main.</span></span><span class="sig-name descname"><span class="pre">Hamiltonian</span></span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hamiltonian class to define the neural network by subclassing nn.Module</p>
+<dd><p>Class to define the neural network (parameterized Hamiltonian), which inherits from nn.Module</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>In the init method we define the parameters</p>
+<dd><p>Method where the parameters are defined
+|</p>
 </dd></dl>
 
 <dl class="py method">
@@ -133,10 +134,11 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>row</strong> – Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>row</strong> (<em>torch.Tensor</em>) – Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]</p></li>
+<li><p><em>|</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -150,10 +152,11 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>row</strong> – Kinetic energy, with shape [batch size, 1]</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>row</strong> (<em>torch.Tensor</em>) – Kinetic energy, with shape [batch size, 1]</p></li>
+<li><p><em>|</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -167,10 +170,11 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>row</strong> – Potential energy, with shape [batch size, 1]</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>row</strong> (<em>torch.Tensor</em>) – Potential energy, with shape [batch size, 1]</p></li>
+<li><p><em>|</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -185,10 +189,11 @@ and returns a tensor containing a scalar output (Hamiltonian)).</p>
 <dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>o</strong> – Value of the Hamiltonian, with shape [batch size, 1]</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>o</strong> (<em>torch.Tensor</em>) – Value of the Hamiltonian, with shape [batch size, 1]</p></li>
+<li><p><em>|</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>

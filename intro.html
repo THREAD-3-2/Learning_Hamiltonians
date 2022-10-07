@@ -130,43 +130,6 @@ implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>
 <div class="line"><br /></div>
 </div>
 <p>This function in turn makes use of</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hq">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gradient of the Hamiltonian with respect to the configuration variables</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hp">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gradient of the Hamiltonian with respect to the conjugate momenta</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of generalized coordinates and momenta, with N the number of pendulums</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -235,6 +198,45 @@ such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cros
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<p>to define the Kinetic energy as in <a class="reference internal" href="#equation-ham">(1)</a> - <a class="reference internal" href="#equation-mmatrp">(5)</a>, and of</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hq">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradient of the Hamiltonian with respect to the configuration variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of configuration variables and conjugate momenta, with N the number of pendulums</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hp">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">Hp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.Hp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradient of the Hamiltonian with respect to the conjugate momenta</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – 6N-component vector of generalized coordinates and momenta, with N the number of pendulums</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Hp</strong> – 3N-component vector, with N the number of pendulums</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>to define the derivatives of the HAmiltonian function <a class="reference internal" href="#equation-ham">(1)</a>.</p>
 <p>System <a class="reference internal" href="#equation-hameqpend">(6)</a> is also implemented in</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.main.predicted">
@@ -249,10 +251,11 @@ to get trajectory segments with the evaluated Hamiltonian</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>vec</strong> – vector field (Hamlton equations)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>vec</strong> (<em>torch.Tensor</em>) – vector field (Hamlton equations)</p></li>
+<li><p><em>|</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>

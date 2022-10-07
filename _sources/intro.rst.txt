@@ -107,12 +107,6 @@ This system is implemented in the following function to generate the training da
 
 This function in turn makes use of
 
-.. autofunction:: Learning_Hamiltonians.trajectories.Hq
-
-|
-
-.. autofunction:: Learning_Hamiltonians.trajectories.Hp
-
 |
 
 .. autofunction:: Learning_Hamiltonians.trajectories.MatrR
@@ -126,6 +120,17 @@ This function in turn makes use of
 .. autofunction:: Learning_Hamiltonians.trajectories.Massm
 
 |
+
+to define the Kinetic energy as in :eq:`ham` - :eq:`mmatrp`, and of
+
+.. autofunction:: Learning_Hamiltonians.trajectories.Hq
+
+|
+
+.. autofunction:: Learning_Hamiltonians.trajectories.Hp
+
+to define the derivatives of the HAmiltonian function :eq:`ham`.
+
 
 System :eq:`hameqpend` is also implemented in 
 
