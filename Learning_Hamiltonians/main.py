@@ -218,7 +218,6 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       Returns
       -------
       row : torch.Tensor
-      
             Potential energy, with shape [batch size, 1]
 
       """ 
@@ -329,7 +328,7 @@ def predicted(t,z):
   -------
   vec : torch.Tensor
         vector field (Hamlton equations)
-  |
+        
   """
   z = torch.from_numpy(z.astype(np.float32)).requires_grad_()
   z = z.to(device)
