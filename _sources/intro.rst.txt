@@ -127,7 +127,7 @@ This function in turn makes use of
 
 |
 
-The system :eq:`hameqpend` is also implemented in 
+System :eq:`hameqpend` is also implemented in 
 
 .. autofunction:: Learning_Hamiltonians.main.predicted
 
@@ -179,7 +179,7 @@ Lie group inetgrators make use of the expoenntial map on :math:`SO(3)` and :math
 
 |
 
-.. autofunction:: Learning_Hamiltonians.nn_functions.exps33NN
+.. autofunction:: Learning_Hamiltonians.nn_functions.expse3NN
 
 We represent a generic element of the special Euclidean group :math:`G=SE(3)` as 
 an ordered pair :math:`(R,r)`, where :math:`R\in SO(3)` is a rotation matrix and :math:`r\in\mathbb{R}^3` is a vector. The vector 
@@ -211,8 +211,8 @@ The map :eq:`mapfham` for the double pendulum has been implemented in the follow
 
 and the extension of :eq:`act` to :math:`(T^*S^2)^k` in
 
-.. autofunction:: Learning_Hamiltonians.nn_functions.expse3NNn
+.. autofunction:: Learning_Hamiltonians.nn_functions.actionse3NNn
 
 Finally, the extension of exponential map on :math:`SE(3)` to :math:`(T^*S^2)^k` is implemented in
 
-.. autofunction:: Learning_Hamiltonians.nn_functions.actionse3NNn
+.. autofunction:: Learning_Hamiltonians.nn_functions.expse3NNn

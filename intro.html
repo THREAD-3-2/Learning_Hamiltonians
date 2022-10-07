@@ -235,12 +235,12 @@ such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cros
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>The system <a class="reference internal" href="#equation-hameqpend">(6)</a> is also implemented in</p>
+<p>System <a class="reference internal" href="#equation-hameqpend">(6)</a> is also implemented in</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.main.predicted">
 <span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.main.</span></span><span class="sig-name descname"><span class="pre">predicted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.predicted" title="Permalink to this definition">¶</a></dt>
-<dd><p>Vector field predicted by using the evaluated Hamiltonian, t be used in scipy.integrate.solve_ivp
-to get trajectory segments with the evaluated Hamitlonian</p>
+<dd><p>Vector field predicted by using the evaluated Hamiltonian, to be used in scipy.integrate.solve_ivp
+to get trajectory segments with the evaluated Hamiltonian</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -447,6 +447,27 @@ are implemented for the time integration of <a class="reference internal" href="
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<dl class="py function">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.expse3NN">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">expse3NN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.expse3NN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponential map on SE(3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em><em> (</em><em>float32</em><em>)</em>) – element of the lie algebra se(3) represented as 6-component vector,
+i.e. as a pair (u,v) with with the 3-component vector u corresponding
+to a skew symmetric matrix hat(u) and the 3-component vector v
+corresponding to the translational part.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>expA</strong> – element of the group SE(3), represented as a 3x4 matrix [A, b],
+with A 3x3 rotation matrix and b 3-component translation vector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p>We represent a generic element of the special Euclidean group <span class="math notranslate nohighlight">\(G=SE(3)\)</span> as
 an ordered pair <span class="math notranslate nohighlight">\((R,r)\)</span>, where <span class="math notranslate nohighlight">\(R\in SO(3)\)</span> is a rotation matrix and <span class="math notranslate nohighlight">\(r\in\mathbb{R}^3\)</span> is a vector. The vector
 field <span class="math notranslate nohighlight">\(X(q,p)\)</span> can be expressed as <span class="math notranslate nohighlight">\(\psi_*(F[H](q,p))(q,p)\)</span> with</p>
@@ -485,12 +506,15 @@ in <a class="reference external" href="https://doi.org/10.1080/00207160.2021.196
 
 <p>and the extension of <a class="reference internal" href="#equation-act">(7)</a> to <span class="math notranslate nohighlight">\((T^*S^2)^k\)</span> in</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.expse3NNn">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">expse3NNn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.expse3NNn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Concatenate exponentials on SE(3) in one tensor</p>
+<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.actionse3NNn">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">actionse3NNn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.actionse3NNn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate se3 actions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input</strong> (<em>torch.Tensor</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> (<em>torch.Tensor</em>) – elements of the group SE3</p></li>
+<li><p><strong>z</strong> (<em>torch.Tensor</em>) – trajectory points in the phase space</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong></p>
@@ -503,15 +527,12 @@ in <a class="reference external" href="https://doi.org/10.1080/00207160.2021.196
 
 <p>Finally, the extension of exponential map on <span class="math notranslate nohighlight">\(SE(3)\)</span> to <span class="math notranslate nohighlight">\((T^*S^2)^k\)</span> is implemented in</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.actionse3NNn">
-<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">actionse3NNn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.actionse3NNn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Concatenate se3 actions</p>
+<dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.expse3NNn">
+<span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">expse3NNn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.expse3NNn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate exponentials on SE(3) in one tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>g</strong> (<em>torch.Tensor</em>) – elements of the group SE3</p></li>
-<li><p><strong>z</strong> (<em>torch.Tensor</em>) – trajectory points in the phase space</p></li>
-</ul>
+<dd class="field-odd"><p><strong>input</strong> (<em>torch.Tensor</em>) – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong></p>
