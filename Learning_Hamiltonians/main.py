@@ -218,6 +218,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
       Returns
       -------
       row : torch.Tensor
+      
             Potential energy, with shape [batch size, 1]
 
       """ 
@@ -247,7 +248,7 @@ class Hamiltonian(nn.Module): # the neural network module contains layers and en
           Value of the Hamiltonian, with shape [batch size, 1]
           
       """ 
-      
+
       o = self.Potential(X) + self.Kinetic(X)
       return o
 
