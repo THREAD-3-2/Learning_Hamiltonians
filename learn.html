@@ -119,20 +119,9 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.main.</span></span><span class="sig-name descname"><span class="pre">Hamiltonian</span></span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hamiltonian class to define the neural network by subclassing nn.Module</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian.Kinetic">
-<span class="sig-name descname"><span class="pre">Kinetic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian.Kinetic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kinetic energy in the Hamiltonian function</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>row</strong> – Kinetic energy, with shape [batch size, 1]</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>torch.Tensor</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>In the init method we define the parameters</p>
 </dd></dl>
 
 <dl class="py method">
@@ -145,6 +134,23 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>row</strong> – Mass matrix to be learned by the neural network,  with shape [batch size, nop*s, nop*s]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian.Kinetic">
+<span class="sig-name descname"><span class="pre">Kinetic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian.Kinetic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kinetic energy in the Hamiltonian function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>torch.Tensor</em>) – training trajectory points in input, with shape [batch size, nop*2s]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>row</strong> – Kinetic energy, with shape [batch size, 1]</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>torch.Tensor</p>
@@ -167,12 +173,6 @@ potential energy, a possible modelling strategy is to work with standard feedfor
 <dd class="field-odd"><p>torch.Tensor</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Learning_Hamiltonians.main.Hamiltonian.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.main.Hamiltonian.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>In the init method we define the parameters</p>
 </dd></dl>
 
 <dl class="py method">
