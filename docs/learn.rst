@@ -114,3 +114,7 @@ for example with :math:`\sigma(x) = \tanh(x)`. Therefore, we have that
         \Theta = [A, \theta], \quad H(q,p) \approx H_{\Theta}(q,p) = K_A(p) + V_{\theta}(q).
     \end{align}
 
+The neural network for the parameterized Hamiltonian :eq:'tpar' is defined in the PyTorch class
+
+.. autoclass:: Learning_Hamiltonians.main.Hamiltonian
+

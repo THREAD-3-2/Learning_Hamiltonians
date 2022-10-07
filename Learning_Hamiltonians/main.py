@@ -302,8 +302,8 @@ Ham.eval(); # to pass in evaluation mode
 
 def predicted(t,z):
   """
-  Vector field predicted by using the evaluated Hamiltonian, t be used in scipy.integrate.solve_ivp
-  to get trajectory segments with the evaluated Hamitlonian
+  Vector field predicted by using the evaluated Hamiltonian, to be used in scipy.integrate.solve_ivp
+  to get trajectory segments with the evaluated Hamiltonian
 
   Parameters
   ----------
