@@ -126,13 +126,7 @@ implies <span class="math notranslate nohighlight">\(W(q,p) = pq^T-qp^T\)</span>
 </dl>
 </dd></dl>
 
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>This function in turn makes use of</p>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.MatrR">
 <span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.trajectories.</span></span><span class="sig-name descname"><span class="pre">MatrR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.trajectories.MatrR" title="Permalink to this definition">¶</a></dt>
@@ -195,9 +189,6 @@ such that hat(a)b=axb for all 3-component vectors a and b, with “x” the cros
 </dl>
 </dd></dl>
 
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>to define the Kinetic energy as in <a class="reference internal" href="#equation-ham">(1)</a> - <a class="reference internal" href="#equation-mmatrp">(5)</a>, and of</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.trajectories.Hq">
@@ -268,7 +259,7 @@ to get trajectory segments with the evaluated Hamiltonian</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – solution at time t0</p></li>
 <li><p><strong>HH</strong> (<em>function handle</em>) – Hamiltonian</p></li>
 </ul>
 </dd>
@@ -335,7 +326,7 @@ are implemented for the time integration of <a class="reference internal" href="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – solution at time t0</p></li>
 <li><p><strong>f</strong> (<em>function handle</em>) – map f from the manifold M to the Lie algebra of the group acting on M</p></li>
 <li><p><strong>h</strong> (<em>float</em>) – time step</p></li>
 <li><p><strong>cc</strong> (<em>int</em>) – M-1</p></li>
@@ -361,7 +352,7 @@ are implemented for the time integration of <a class="reference internal" href="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – solution at time t0</p></li>
 <li><p><strong>f</strong> (<em>function handle</em>) – map f from the manifold M to the Lie algebra of the group acting on M</p></li>
 <li><p><strong>h</strong> (<em>float</em>) – time step</p></li>
 <li><p><strong>cc</strong> (<em>int</em>) – M-1</p></li>
@@ -387,7 +378,7 @@ are implemented for the time integration of <a class="reference internal" href="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – solution at time t0</p></li>
 <li><p><strong>f</strong> (<em>function handle</em>) – map f from the manifold M to the Lie algebra of the group acting on M</p></li>
 <li><p><strong>h</strong> (<em>float</em>) – time step</p></li>
 <li><p><strong>cc</strong> (<em>int</em>) – M-1</p></li>
@@ -413,7 +404,7 @@ are implemented for the time integration of <a class="reference internal" href="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – soltuion at time t0</p></li>
+<li><p><strong>x0</strong> (<em>torch.Tensor</em>) – solution at time t0</p></li>
 <li><p><strong>f</strong> (<em>function handle</em>) – map f from the manifold M to the Lie algebra of the group acting on M</p></li>
 <li><p><strong>h</strong> (<em>float</em>) – time step</p></li>
 <li><p><strong>cc</strong> (<em>int</em>) – M-1</p></li>
@@ -429,7 +420,7 @@ are implemented for the time integration of <a class="reference internal" href="
 </dl>
 </dd></dl>
 
-<p>Lie group inetgrators make use of the expoenntial map on <span class="math notranslate nohighlight">\(SO(3)\)</span> and <span class="math notranslate nohighlight">\(SE(3)\)</span>, implemented in</p>
+<p>Lie group integrators make use of the exponential maps on <span class="math notranslate nohighlight">\(SO(3)\)</span> and <span class="math notranslate nohighlight">\(SE(3)\)</span>, implemented respectively in</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="Learning_Hamiltonians.nn_functions.expso3NN">
 <span class="sig-prename descclassname"><span class="pre">Learning_Hamiltonians.nn_functions.</span></span><span class="sig-name descname"><span class="pre">expso3NN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Learning_Hamiltonians.nn_functions.expso3NN" title="Permalink to this definition">¶</a></dt>
